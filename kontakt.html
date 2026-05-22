@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <title>Kontakt · musterteil.de</title>
+  <meta name="description" content="Demo-Kontaktformular für Musterteil-Anfragen." />
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0f172a" />
+<link rel="icon" href="assets/img/brand/logo.svg" type="image/svg+xml" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+<div class="build-banner">musterteil.de befindet sich aktuell in Gestaltung · Demo-Version · Firmendaten sind Platzhalter</div>
+<header class="topbar" data-topbar>
+  <div class="container navwrap">
+    <a class="brand" href="index.html" aria-label="musterteil.de Startseite">
+      <span class="brandmark">M</span><span><strong>musterteil.de</strong><small>3D Druck · Laser · Musterteile</small></span>
+    </a>
+    <button class="mobile-toggle" data-menu-toggle aria-label="Navigation öffnen">☰</button>
+    <nav class="mainnav" data-mainnav><a class="" href="index.html">Start</a>
+<a class="" href="leistungen.html">Leistungen</a>
+<a class="" href="materialien.html">Material</a>
+<a class="" href="portfolio.html">Portfolio</a>
+<a class="" href="status.html">Status</a>
+<a class="active" href="kontakt.html">Kontakt</a><a class="admin-pill" href="admin.html">Admin</a></nav>
+  </div>
+</header>
+<main><section class="page-hero"><div class="container"><span class="eyebrow">Kontakt</span><h1>Projektanfrage senden.</h1><p>Demo-Formular: Die Anfrage wird nur lokal im Browser gespeichert und im Admin-Demo angezeigt. Kein echter E-Mail-Versand.</p></div></section>
+<section class="section"><div class="container contact-grid">
+  <form class="request-form" id="requestForm">
+    <div class="form-row"><label>Firma<input name="company" placeholder="z. B. Muster GmbH"></label><label>Name<input name="name" required placeholder="Ihr Name"></label></div>
+    <div class="form-row"><label>E-Mail<input name="email" required type="email" placeholder="name@firma.de"></label><label>Telefon<input name="phone" placeholder="+49 ..."></label></div>
+    <div class="form-row"><label>Verfahren<select name="process"><option>3D Druck</option><option>Laserschneiden</option><option>Lasergravur</option><option>Kleinserie</option><option>Beratung</option></select></label><label>Dateiformat<select name="fileType"><option>STL</option><option>STEP</option><option>DXF</option><option>SVG</option><option>Noch keine Datei</option></select></label></div>
+    <div class="form-row"><label>Stückzahl<input type="number" name="qty" value="1" min="1"></label><label>Wunschtermin<input type="date" name="date"></label></div>
+    <label>Beschreibung<textarea name="message" required placeholder="Material, Maße, Einsatzbereich, Anforderungen..."></textarea></label>
+    <label class="file-demo">Demo-Datei auswählen<input type="file" name="file" accept=".stl,.step,.stp,.dxf,.svg,.pdf"></label>
+    <label class="checkbox"><input type="checkbox" required> Ich verstehe, dass dies eine Demo ohne echten Versand ist.</label>
+    <button class="btn primary" type="submit">Anfrage lokal speichern</button>
+    <div class="form-note" id="formNote"></div>
+  </form>
+  <aside class="contact-card"><h2>Platzhalter Kontaktdaten</h2><p><strong>Firma:</strong> [Firmenname]</p><p><strong>Adresse:</strong> [Straße Hausnummer], [PLZ Ort]</p><p><strong>E-Mail:</strong> [E-Mail-Adresse]</p><p><strong>Telefon:</strong> [Telefonnummer]</p><hr><p class="mini">Bitte vor Veröffentlichung echte Betreiberangaben und rechtliche Pflichtinformationen eintragen.</p></aside>
+</div></section></main>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand footer-brand" href="index.html"><span class="brandmark">M</span><span><strong>musterteil.de</strong><small>Digitale Fertigung im Aufbau</small></span></a>
+      <p>Diese Website befindet sich aktuell in der Gestaltung. Inhalte, Preise, Referenzen und rechtliche Angaben sind Platzhalter und müssen vor dem Livegang geprüft werden.</p>
+    </div>
+    <div><h4>Fertigung</h4><a href="leistungen.html#3d-druck">3D Druck</a><a href="leistungen.html#laser">Laserbearbeitung</a><a href="leistungen.html#gravur">Lasergravur</a><a href="leistungen.html#kleinserie">Kleinserien</a></div>
+    <div><h4>Unternehmen</h4><a href="portfolio.html">Portfolio</a><a href="status.html">Status</a><a href="kontakt.html">Projekt anfragen</a><a href="admin.html">Admin Demo</a></div>
+    <div><h4>Rechtliches</h4><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a><p class="mini">Platzhalter: [Name], [Adresse], [E-Mail], [Telefon]</p></div>
+  </div>
+  <div class="container subfooter">© <span data-year></span> musterteil.de · Demo-Seite · Kein produktiver Shop</div>
+</footer>
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>
