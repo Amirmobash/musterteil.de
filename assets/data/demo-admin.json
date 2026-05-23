@@ -1,0 +1,48 @@
+{
+  "orders": [
+    {
+      "id": "MT-2026-1001",
+      "customer": "Muster Maschinenbau GmbH",
+      "service": "CNC + Laser",
+      "material": "Aluminium / Acryl",
+      "status": "Anfrage",
+      "value": "480 €"
+    },
+    {
+      "id": "MT-2026-1002",
+      "customer": "DesignLab Berlin",
+      "service": "3D Druck",
+      "material": "PETG Schwarz",
+      "status": "In Prüfung",
+      "value": "145 €"
+    },
+    {
+      "id": "MT-2026-1003",
+      "customer": "Elektronik Werkstatt",
+      "service": "Lasergravur",
+      "material": "Acryl 3mm",
+      "status": "Angebot",
+      "value": "96 €"
+    }
+  ],
+  "materials": [
+    "PLA",
+    "PETG",
+    "ABS",
+    "ASA",
+    "Resin",
+    "Acryl",
+    "MDF",
+    "Sperrholz",
+    "Aluminium",
+    "POM",
+    "PA"
+  ],
+  "machines": [
+    "FDM Printer Farm",
+    "SLA Printer",
+    "Laser Cutter",
+    "CNC Router",
+    "CNC Mill"
+  ]
+}
