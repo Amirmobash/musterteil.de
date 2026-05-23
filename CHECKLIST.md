@@ -1,17 +1,16 @@
-# Livegang Checkliste
+# Checkliste vor Livegang
 
 - [ ] Firmenname eintragen
 - [ ] Adresse eintragen
-- [ ] E-Mail und Telefon eintragen
-- [ ] Impressum rechtlich pruefen
-- [ ] Datenschutz rechtlich pruefen
-- [ ] AGB rechtlich pruefen
-- [ ] Echte Projektfotos ersetzen
-- [ ] Preise finalisieren
-- [ ] Backend/API bauen
-- [ ] Datei-Upload sicher implementieren
-- [ ] Admin-Login serverseitig absichern
+- [ ] E-Mail und Telefonnummer eintragen
+- [ ] Impressum rechtlich prüfen
+- [ ] Datenschutz rechtlich prüfen
+- [ ] AGB rechtlich prüfen
+- [ ] Cookie/Tracking-Konzept prüfen
+- [ ] Backend für Anfragen bauen
+- [ ] Sicherer Datei-Upload für STL/STEP/DXF/SVG
+- [ ] Admin Login durch echte Authentifizierung ersetzen
+- [ ] Datenbank anschließen
 - [ ] E-Mail-Benachrichtigung einrichten
-- [ ] Rechnungsprozess klaeren
-- [ ] Google Search Console verbinden
-- [ ] Google Business Profile anlegen
+- [ ] Angebots- und Rechnungsprozess ergänzen
+- [ ] Preise, Maschinen und Materialien finalisieren

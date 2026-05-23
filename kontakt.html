@@ -1,1 +1,74 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kontakt · musterteil.de</title><meta name="description" content="musterteil.de: 3D Druck, Laserbearbeitung, CNC Fraesen, Musterteile und Kleinserien."><link rel="stylesheet" href="assets/css/styles.css"><link rel="manifest" href="manifest.webmanifest"></head><body><header class="topline"><div class="wrap nav"><a class="logo" href="index.html"><span class="mark">MT</span><span>musterteil.de</span></a><nav class="navlinks"><a href="leistungen.html">Leistungen</a><a href="materialien.html">Material</a><a href="portfolio.html">Portfolio</a><a href="status.html">Status</a><a href="kontakt.html">Kontakt</a><a href="admin.html">Admin</a><a class="btn primary" href="kontakt.html">Projekt anfragen</a></nav><a class="btn mobile-menu" href="kontakt.html">Anfragen</a></div></header><main><section class="section"><div class="wrap grid2"><div><span class="badge">Kontakt</span><h1>Projekt anfragen</h1><p class="lead">Beschreiben Sie Ihr Bauteil, Verfahren, Menge und Termin. Dieses Formular ist eine Frontend-Demo und speichert die Anfrage lokal im Browser.</p><div id="priceCalc" class="card"><h3>Schnellkalkulator Demo</h3><select id="serviceCalc"><option>3D Druck</option><option>Laser</option><option>CNC</option></select><input class="input" id="hours" type="number" value="2" min="1" placeholder="Maschinenstunden"><input class="input" id="mat" type="number" value="20" min="0" placeholder="Materialkosten"><input class="input" id="qty" type="number" value="1" min="1" placeholder="Menge"><h2 id="calcOut">–</h2></div></div><form id="quoteForm" class="card form"><label>Name / Firma<input class="input" name="name" required></label><label>E-Mail<input class="input" name="email" type="email" required></label><label>Telefon<input class="input" name="phone"></label><label>Leistung<select name="service"><option>3D Druck</option><option>Laser schneiden</option><option>Lasergravur</option><option>CNC Fraesen</option><option>Konstruktion + Fertigung</option></select></label><label>Material<input class="input" name="material" placeholder="z.B. PETG, Acryl, Aluminium"></label><label>Menge<input class="input" name="qty" type="number" value="1"></label><label>Budget<input class="input" name="budget" placeholder="optional"></label><label>Wunschtermin<input class="input" name="deadline" type="date"></label><label>Nachricht<textarea name="message" placeholder="Bauteil, Zweck, Masse, Toleranzen, Finish..."></textarea></label><button class="btn primary">Anfrage speichern</button></form></div></section></main><footer class="footer"><div class="wrap footergrid"><div><div class="logo"><span class="mark">MT</span><span>musterteil.de</span></div><p>Digitale Fertigung fuer Musterteile, Prototypen und Kleinserien. Diese Website befindet sich aktuell in Gestaltung.</p></div><div><b>Unternehmen</b><p><a href="impressum.html">Impressum</a><br><a href="datenschutz.html">Datenschutz</a><br><a href="agb.html">AGB</a></p></div><div><b>Kontakt</b><p>[Firmenname eintragen]<br>[Adresse eintragen]<br>[E-Mail eintragen]<br>[Telefon eintragen]</p></div></div><div class="wrap"><p>© <span class="year"></span> musterteil.de · Alle Angaben sind Platzhalter.</p></div></footer><script src="assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt | musterteil.de</title>
+  <meta name="description" content="Laser, CNC und 3D Druck Service.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="build-banner">Website befindet sich aktuell in Gestaltung · Anfragefunktion und Adminbereich sind Frontend-Demo</div>
+  <header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-logo">M</span><span>musterteil.de</span></a>
+  <button class="menu-btn" aria-label="Menü öffnen">☰</button>
+  <nav class="main-nav">
+    <a href="leistungen.html">Leistungen</a>
+    <a href="laser.html">Laser</a>
+    <a href="cnc.html">CNC</a>
+    <a href="3d-druck.html">3D Druck</a>
+    <a href="materialien.html">Materialien</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="status.html">Status</a>
+    <a href="kontakt.html" class="nav-cta">Anfrage</a>
+    <a href="admin.html" class="nav-admin">Admin</a>
+  </nav>
+</header>
+  <main>
+<section class="page-head"><span class="eyebrow">Kontakt</span><h1>Anfrage vorbereiten</h1><p>Demoformular. Für den echten Betrieb wird ein Backend mit sicherem Datei-Upload angeschlossen.</p></section>
+<section class="section contact-grid">
+  <form id="requestForm" class="form-card">
+    <label>Name / Firma<input name="name" required placeholder="Ihr Name / Firmenname"></label>
+    <label>E-Mail<input type="email" name="email" required placeholder="name@example.de"></label>
+    <label>Verfahren<select name="service"><option>3D Druck</option><option>Laser</option><option>CNC</option><option>Kombination</option></select></label>
+    <label>Dateityp<select name="filetype"><option>STL</option><option>STEP</option><option>DXF</option><option>SVG</option><option>PDF / Zeichnung</option></select></label>
+    <label>Beschreibung<textarea name="message" rows="7" placeholder="Material, Menge, Zieltermin, Anforderungen..."></textarea></label>
+    <button class="btn primary" type="submit">Demo-Anfrage speichern</button>
+    <p id="formNote" class="muted"></p>
+  </form>
+  <aside class="form-card">
+    <h2>Firmendaten Platzhalter</h2>
+    <p><strong>Firmenname:</strong> [BITTE EINTRAGEN]</p>
+    <p><strong>Adresse:</strong> [STRAẞE, PLZ, ORT]</p>
+    <p><strong>E-Mail:</strong> [E-MAIL EINTRAGEN]</p>
+    <p><strong>Telefon:</strong> [TELEFON EINTRAGEN]</p>
+    <p><strong>USt-IdNr.:</strong> [FALLS VORHANDEN]</p>
+  </aside>
+</section>
+</main>
+  <footer class="footer">
+  <div>
+    <strong>musterteil.de</strong>
+    <p>Laserbearbeitung, CNC-Fräsen, 3D-Druck, technische Musterteile und Kleinserien.</p>
+  </div>
+  <div>
+    <strong>Navigation</strong>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+  <div>
+    <strong>Rechtliches</strong>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html">AGB</a>
+  </div>
+  <div>
+    <strong>Status</strong>
+    <p>Diese Website befindet sich aktuell in Gestaltung. Firmenname, Adresse und Rechtstexte sind Platzhalter.</p>
+  </div>
+</footer>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
