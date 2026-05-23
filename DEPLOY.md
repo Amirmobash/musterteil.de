@@ -1,29 +1,14 @@
-# Upload zu GitHub
+# Deployment auf GitHub Pages
 
-Repository: https://github.com/Amirmobash/musterteil.de
-
-## Variante 1: GitHub Web Upload
-
-1. ZIP entpacken
-2. GitHub Repository öffnen
-3. Add file → Upload files
-4. Alle Dateien und Ordner hochladen
-5. Commit message: `Upload musterteil.de website`
-6. Commit changes klicken
-
-## Variante 2: Git Terminal
-
-```bash
-git clone https://github.com/Amirmobash/musterteil.de.git
-cd musterteil.de
-# Dateien aus diesem ZIP hier hineinkopieren
-git add .
-git commit -m "Upload musterteil.de professional website"
-git push origin main
-```
-
-## GitHub Pages
-
-Settings → Pages → Deploy from branch → main / root.
-
-Die Datei `CNAME` ist bereits mit `musterteil.de` vorbereitet.
+1. Inhalt dieses Ordners in `Amirmobash/musterteil.de` hochladen.
+2. GitHub: Settings -> Pages.
+3. Source: Deploy from a branch.
+4. Branch: main, Folder: /root.
+5. Custom domain: `musterteil.de`.
+6. DNS bei Namecheap:
+   - A @ 185.199.108.153
+   - A @ 185.199.109.153
+   - A @ 185.199.110.153
+   - A @ 185.199.111.153
+   - CNAME www amirmobash.github.io
+7. Nach Zertifikatserstellung Enforce HTTPS aktivieren.

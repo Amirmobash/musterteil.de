@@ -1,9 +1,1 @@
-{
-  "name": "musterteil.de",
-  "short_name": "musterteil",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#0f172a",
-  "description": "3D Druck, Laser und Musterteile im Aufbau"
-}
+{"name":"musterteil.de","short_name":"Musterteil","start_url":"/","display":"standalone","background_color":"#070b12","theme_color":"#4de2c2"}
