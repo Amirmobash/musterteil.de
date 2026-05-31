@@ -1,5 +1,8 @@
-<!doctype html><html lang="de"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Preisrechner | Musterteil</title>
 <meta name="description" content="STL-Datei auswählen und unverbindliche Preisindikation für PLA 3D-Druck erhalten.">
 <meta name="robots" content="index,follow">
@@ -9,40 +12,67 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://musterteil.de/assets/img/hero.svg">
 <meta name="theme-color" content="#ff8c00">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/musterteil.css">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Musterteil","url":"https://musterteil.de","description":"PLA 3D-Druckservice für Einzelstücke, Prototypen und Kleinserien in Deutschland.","areaServed":"DE","founder":"Ladan Seddighi","makesOffer":[{"@type":"Offer","name":"PLA 3D-Druckservice für STL-Dateien"}]}</script>
-</head><body>
-<div class="build-note">Musterteil · PLA‑3D‑Druckservice · Geschäftsbeginn nach Erteilung der Genehmigung · 2026</div>
-<header class="site-header">
-<a class="brand" href="index.html"><span class="brand-mark">M</span><span>musterteil.de</span></a>
-<button class="menu-btn" aria-label="Menü öffnen">☰</button>
-<nav class="main-nav">
-<a href="index.html">Start</a>
-<a href="preisrechner.html">Preisrechner</a>
-<a href="leistungen.html">Leistungen</a>
-<a href="qualitaet.html">Qualität</a>
-<a href="ablauf.html">Ablauf</a>
-<a href="studenten.html">Studierende</a>
-<a href="beispiele.html">Beispiele</a>
-<a href="faq.html">FAQ</a>
-<a class="nav-cta" href="kontakt.html">Anfrage</a>
-</nav></header><main>
-<section class="page-head"><span class="eyebrow">Preisrechner</span><h1>STL-Datei auswählen und Preisindikation erhalten.</h1><p>Der Rechner bietet eine schnelle Orientierung. Die finale Kalkulation erfolgt nach Prüfung der Datei.</p></section>
-<section class="section quote-layout">
-<form id="quoteForm" class="panel-card quote-panel reveal"><h2>1. Projekt konfigurieren</h2>
-<label>Datei auswählen<input type="file" id="fileInput" name="file" accept=".stl,.3mf,.obj"></label><div id="fileInfo" class="file-info">Noch keine Datei ausgewählt.</div>
-<div class="grid-2"><label>Projektart<select name="projectType"><option value="small">Kleines Einzelteil / Ersatzteil</option><option value="student">Schul- oder Studienprojekt</option><option value="prototype">Prototyp / Präsentationsmodell</option><option value="series">Kleinserie</option></select></label><label>Menge<input type="number" name="quantity" min="1" value="1"></label></div>
-<div class="grid-2"><label>Komplexität<select name="complexity"><option value="1">Einfach</option><option value="1.35">Mittel</option><option value="1.8">Komplex</option></select></label><label>Nachbearbeitung<select name="quality"><option value="0">Standard</option><option value="8">Stützstrukturen entfernen / Reinigung</option><option value="18">Präsentationsqualität</option></select></label></div>
-<div class="grid-2"><label>Versand<select name="shipping"><option value="0">später klären</option><option value="6">Versand innerhalb Deutschlands</option></select></label><label>Farbwunsch / Hinweis<input name="color" placeholder="z. B. weiß, schwarz, orange"></label></div>
-<label>Projektbeschreibung<textarea name="notes" rows="5" placeholder="Wofür wird das Teil benötigt? Gibt es Maße, Fristen oder besondere Hinweise?"></textarea></label>
-<button class="btn primary" type="submit">Preis berechnen</button></form>
-<aside class="panel-card quote-result reveal"><h2>2. Ergebnis</h2><output id="priceOutput">ca. 0,00 €</output><p id="quoteNote" class="muted">Bitte links Angaben ergänzen und Berechnung starten.</p><textarea id="quoteSummary" rows="14" readonly placeholder="Hier erscheint die Anfrage-Zusammenfassung."></textarea><div class="hero-actions"><button id="copyQuote" class="btn secondary" type="button">Anfrage kopieren</button><a id="mailtoQuote" class="btn primary" href="mailto:?subject=3D-Druck Anfrage Musterteil">Per E-Mail vorbereiten</a></div><div class="quote-tips"><h3>Preisfaktoren</h3><ul><li>Materialverbrauch PLA</li><li>Druckzeit</li><li>Nachbearbeitung</li><li>Verpackung und Versand</li></ul></div></aside>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Musterteil","url":"https://musterteil.de","description":"PLA 3D-Druckservice für Einzelstücke, Prototypen und Kleinserien.","areaServed":"DE","founder":"Ladan Seddighi"}</script>
+</head>
+<body>
+<div class="mt-topline">Musterteil · PLA‑3D‑Druckservice · Geschäftsbeginn nach Erteilung der Genehmigung · 2026</div>
+<header class="mt-header">
+  <a class="mt-brand" href="index.html"><span>M</span><strong>musterteil.de</strong></a>
+  <button class="mt-menu" id="menuBtn" aria-label="Menü öffnen">☰</button>
+  <nav class="mt-nav" id="mainNav">
+    <a href="index.html">Start</a>
+    <a href="preisrechner.html">Preisrechner</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="qualitaet.html">Qualität</a>
+    <a href="ablauf.html">Ablauf</a>
+    <a href="studenten.html">Studierende</a>
+    <a href="beispiele.html">Beispiele</a>
+    <a href="faq.html">FAQ</a>
+    <a class="mt-cta" href="kontakt.html">Anfrage</a>
+  </nav>
+</header>
+<main>
+
+<section class="mt-pagehead reveal"><span class="mt-eyebrow">Preisrechner</span><h1>STL-Datei auswählen und Preisindikation erhalten.</h1><p>Der Rechner bietet eine schnelle Orientierung. Die finale Kalkulation erfolgt nach Prüfung der Datei.</p></section>
+<section class="mt-section mt-quote">
+  <form id="quoteForm" class="mt-panel reveal">
+    <h2>Projekt konfigurieren</h2>
+    <label>Datei auswählen<input type="file" id="fileInput" name="file" accept=".stl,.3mf,.obj"></label>
+    <div id="fileInfo" class="mt-fileinfo">Noch keine Datei ausgewählt.</div>
+    <div class="mt-formgrid">
+      <label>Projektart<select name="projectType"><option value="small">Kleines Einzelteil / Ersatzteil</option><option value="student">Schul- oder Studienprojekt</option><option value="prototype">Prototyp / Präsentationsmodell</option><option value="series">Kleinserie</option></select></label>
+      <label>Menge<input type="number" name="quantity" min="1" value="1"></label>
+    </div>
+    <div class="mt-formgrid">
+      <label>Komplexität<select name="complexity"><option value="1">Einfach</option><option value="1.35">Mittel</option><option value="1.8">Komplex</option></select></label>
+      <label>Nachbearbeitung<select name="quality"><option value="0">Standard</option><option value="8">Stützstrukturen entfernen / Reinigung</option><option value="18">Präsentationsqualität</option></select></label>
+    </div>
+    <div class="mt-formgrid">
+      <label>Versand<select name="shipping"><option value="0">später klären</option><option value="6">Versand innerhalb Deutschlands</option></select></label>
+      <label>Farbwunsch / Hinweis<input name="color" placeholder="z. B. weiß, schwarz, orange"></label>
+    </div>
+    <label>Projektbeschreibung<textarea name="notes" rows="5" placeholder="Wofür wird das Teil benötigt? Gibt es Maße, Fristen oder besondere Hinweise?"></textarea></label>
+    <button class="mt-btn mt-btn-primary" type="submit">Preis berechnen</button>
+  </form>
+  <aside class="mt-panel reveal">
+    <h2>Ergebnis</h2>
+    <output id="priceOutput" class="mt-price">ca. 0,00 €</output>
+    <p id="quoteNote" class="mt-muted">Bitte links Angaben ergänzen und Berechnung starten.</p>
+    <textarea id="quoteSummary" rows="14" readonly placeholder="Hier erscheint die Anfrage-Zusammenfassung."></textarea>
+    <div class="mt-actions"><button id="copyQuote" class="mt-btn mt-btn-secondary" type="button">Anfrage kopieren</button><a id="mailtoQuote" class="mt-btn mt-btn-primary" href="mailto:?subject=PLA 3D-Druck Anfrage Musterteil">Per E-Mail vorbereiten</a></div>
+  </aside>
 </section>
-<section class="section panel-card notice-box"><h2>Wichtiger Hinweis</h2><p>Auf GitHub Pages kann keine Datei dauerhaft gespeichert werden. Die Datei wird nur lokal im Browser gelesen. Für den späteren echten Betrieb ist ein Backend mit Upload-Funktion sinnvoll.</p></section>
-</main><footer class="footer">
-<div><strong>musterteil.de</strong><p>PLA‑3D‑Druckservice für Einzelstücke, Prototypen und Kleinserien. Spezialisiert auf druckfertige STL-Dateien, persönliche Kommunikation und nachhaltige Verpackung.</p></div>
-<div><strong>Service</strong><a href="preisrechner.html">Preisrechner</a><a href="leistungen.html">Leistungen</a><a href="ablauf.html">Ablauf</a><a href="qualitaet.html">Qualität</a></div>
-<div><strong>Zielgruppen</strong><a href="studenten.html">Studierende</a><a href="beispiele.html">Beispiele</a><a href="faq.html">FAQ</a><a href="kontakt.html">Kontakt</a></div>
-<div><strong>Rechtliches</strong><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
-</footer><script src="assets/js/app.js"></script></body></html>
+<section class="mt-section"><div class="mt-panel reveal"><h2>Hinweis</h2><p>Auf GitHub Pages kann keine Datei dauerhaft gespeichert werden. Die Datei wird nur lokal im Browser gelesen. Für den späteren echten Betrieb ist ein Backend mit Upload-Funktion sinnvoll.</p></div></section>
+
+</main>
+<footer class="mt-footer">
+  <div><strong>musterteil.de</strong><p>PLA‑3D‑Druckservice für Einzelstücke, Prototypen und Kleinserien in Deutschland.</p></div>
+  <div><strong>Service</strong><a href="preisrechner.html">Preisrechner</a><a href="leistungen.html">Leistungen</a><a href="qualitaet.html">Qualität</a></div>
+  <div><strong>Info</strong><a href="ablauf.html">Ablauf</a><a href="studenten.html">Studierende</a><a href="faq.html">FAQ</a></div>
+  <div><strong>Rechtliches</strong><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
+</footer>
+<script src="assets/js/musterteil.js"></script>
+</body>
+</html>

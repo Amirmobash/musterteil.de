@@ -1,28 +1,33 @@
-# Musterteil – finale professionelle GitHub-Pages Website
+# Musterteil – Clean Final GitHub Pages Website
 
-Diese Version ist für GitHub Pages gebaut und auf den Businessplan von Musterteil abgestimmt.
+Diese Version ist bewusst sauber und stabil aufgebaut, damit das Layout auf GitHub Pages nicht durcheinandergerät.
 
-## Fokus
-- PLA 3D-Druckservice
-- Kundenseitig bereitgestellte STL-Dateien
-- Einzelstücke, Prototypen, Kleinserien
-- Studierende, Schüler, Privatkunden, Start-ups und kleine Unternehmen
-- Qualitätskontrolle, Reinigung, Verpackung und Versand
-- Nachhaltige Verpackung mit Papier und Karton
-- Kein CAD, keine Designleistungen, keine Engineering-Dienstleistungen
-- Keine Medizinprodukte und keine sicherheitskritischen Bauteile
+## Wichtig
+
+Vor dem Hochladen bitte alte HTML-Dateien und alte assets aus dem Repository löschen oder überschreiben. Besonders alte Dateien wie `admin.html`, `cnc.html`, `3d-druck.html`, alte CSS-Dateien und alte JS-Dateien können Besucher verwirren.
 
 ## Seiten
-- Startseite
-- Preisrechner
-- Leistungen
-- Qualität
-- Ablauf
-- Studierende / Zielgruppen
-- Beispiele
-- FAQ
-- Kontakt
-- Rechtliches
 
-## GitHub Pages Hinweis
-GitHub Pages hat kein Backend. Datei-Auswahl und Preisindikation laufen deshalb lokal im Browser. Für einen späteren echten Betrieb wird ein Backend für Uploads und Angebotsverwaltung empfohlen.
+- index.html
+- preisrechner.html
+- leistungen.html
+- qualitaet.html
+- ablauf.html
+- studenten.html
+- beispiele.html
+- faq.html
+- kontakt.html
+- impressum.html
+- datenschutz.html
+- agb.html
+- 404.html
+
+## GitHub Pages
+
+- Branch: main
+- Folder: /root
+- Custom domain: musterteil.de
+
+## Hinweis
+
+GitHub Pages hat kein Backend. Der Preisrechner liest die Datei lokal im Browser und speichert sie nicht.
