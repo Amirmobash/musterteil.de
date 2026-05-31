@@ -1,14 +1,8 @@
 # Sauber hochladen
 
-Empfohlen:
-
-1. Im GitHub Repository alte Dateien löschen:
-   - alte HTML-Dateien, die nicht mehr gebraucht werden
-   - alte assets/css
-   - alte assets/js
-   - alte assets/img
-   - alte assets/gif
-2. ZIP entpacken
-3. Alle Inhalte aus diesem Ordner in den Root des Repository hochladen
-4. GitHub Pages: main / root
-5. Nach Deploy mit Ctrl+F5 oder Inkognito testen
+1. Vorher alte Dateien im Repository löschen oder überschreiben.
+2. Besonders alte Dateien wie admin.html, cnc.html, laser.html, 3d-druck.html entfernen.
+3. Dieses ZIP entpacken.
+4. Inhalt direkt in den Root des GitHub-Repositories hochladen.
+5. GitHub Pages: main / root.
+6. Nach dem Deploy mit Ctrl+F5 oder im Inkognito-Fenster testen.

@@ -1,0 +1,16 @@
+Bitte vor Upload alte Dateien entfernen, damit nichts durcheinandergerät.
+
+Sicher entfernen, falls vorhanden:
+admin.html
+cnc.html
+laser.html
+3d-druck.html
+status.html
+portfolio.html
+alte assets/css/*
+alte assets/js/*
+alte assets/img/*
+alte assets/gif/*
+alte assets/media/*
+
+Danach die neuen Dateien aus diesem ZIP hochladen.
