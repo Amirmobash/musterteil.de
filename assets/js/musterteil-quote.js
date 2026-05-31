@@ -65,19 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem(statusKey, "yes");
   }
 
-  if (statusClose) {
-    statusClose.addEventListener("click", closeStatusPopup);
-  }
-
-  if (statusOk) {
-    statusOk.addEventListener("click", closeStatusPopup);
-  }
+  if (statusClose) statusClose.addEventListener("click", closeStatusPopup);
+  if (statusOk) statusOk.addEventListener("click", closeStatusPopup);
 
   if (statusOverlay) {
     statusOverlay.addEventListener("click", function (event) {
-      if (event.target === statusOverlay) {
-        closeStatusPopup();
-      }
+      if (event.target === statusOverlay) closeStatusPopup();
     });
   }
 

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seite nicht gefunden | Musterteil</title>
-<meta name="description" content="404 Seite">
+<meta name="description" content="PLA 3D-Druck online anfragen: Datei auswählen und Preisindikation erhalten.">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://musterteil.de/404.html">
-<meta property="og:title" content="Seite nicht gefunden | Musterteil">
-<meta property="og:description" content="404 Seite">
+<link rel="canonical" href="https://musterteil.de/">
+<meta property="og:title" content="Datei hochladen und Preis erhalten | Musterteil">
+<meta property="og:description" content="PLA 3D-Druck online anfragen: Datei auswählen und Preisindikation erhalten.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://musterteil.de/assets/img/hero.svg">
 <meta name="theme-color" content="#ff8c00">
@@ -31,12 +31,40 @@
     <a class="mt-cta" href="kontakt.html">Anfrage</a>
   </nav>
 </header>
-<main><section class="mt-pagehead"><h1>Seite nicht gefunden</h1><a class="mt-btn mt-btn-primary" href="index.html">Zur Startseite</a></section></main>
-<footer class="mt-footer">
-  <div><strong>musterteil.de</strong><p>PLA‑3D‑Druckservice für Einzelstücke, Prototypen und Kleinserien. Spezialisiert auf druckfertige STL-Dateien und kleine Auftragsvolumina.</p></div>
-  <div><strong>Plattform</strong><a href="preisrechner.html">Instant Quote</a><a href="leistungen.html">Leistungen</a><a href="materialien.html">Material</a></div>
-  <div><strong>Vertrauen</strong><a href="qualitaet.html">Qualität</a><a href="ablauf.html">Ablauf</a><a href="studenten.html">Zielgruppen</a></div>
-  <div><strong>Rechtliches</strong><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
-</footer>
+<main><section class="mt-pagehead"><h1>Seite nicht gefunden</h1><p>Bitte zurück zur Startseite.</p><a class="mt-btn mt-btn-primary" href="index.html">Zur Startseite</a></section></main>
+
+<!-- Musterteil Status Popup -->
+<div id="mtStatusOverlay" class="mt-status-overlay" role="dialog" aria-modal="true" aria-labelledby="mtStatusTitle">
+  <div class="mt-status-modal">
+    <button id="mtStatusClose" class="mt-status-close" aria-label="Hinweis schließen">×</button>
+
+    <div class="mt-status-badge">Wichtiger Hinweis</div>
+
+    <h2 id="mtStatusTitle">Unsere Website wird derzeit aktualisiert</h2>
+
+    <p>
+      Derzeit bieten wir noch keine aktiven Dienstleistungen an.
+      Musterteil befindet sich aktuell im Aufbau und in der Vorbereitung der erforderlichen Genehmigungen.
+    </p>
+
+    <p>
+      Diese Website dient zur Information über den geplanten PLA-3D-Druckservice.
+      Sobald der Geschäftsbetrieb offiziell starten kann, werden die Angebote und Kontaktmöglichkeiten entsprechend aktualisiert.
+    </p>
+
+    <button id="mtStatusOk" class="mt-status-button" type="button">Verstanden</button>
+  </div>
+</div>
+
+<!-- Musterteil Cookie Banner -->
+<div id="mtCookieBanner" class="mt-cookie-banner" role="region" aria-label="Cookie-Hinweis">
+  <div>
+    <strong>Cookie-Hinweis</strong>
+    <p>
+      Diese Website verwendet technisch notwendige lokale Speicherung, um grundlegende Funktionen wie den Preisrechner und diesen Hinweis bereitzustellen.
+    </p>
+  </div>
+  <button id="mtCookieAccept" class="mt-cookie-button" type="button">Akzeptieren</button>
+</div>
 <script src="assets/js/musterteil-quote.js"></script>
 </body></html>
