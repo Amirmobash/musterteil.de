@@ -1,29 +1,15 @@
-# musterteil.de – Ultimate Static Website
+# Musterteil – Werbewebsite für GitHub Pages
 
-Deutschsprachige Website für Laserbearbeitung, CNC-Fräsen, 3D-Druck, Musterteile und Kleinserien.
+Statische Werbewebsite für PLA-3D-Druckservice.
 
-## Enthalten
+- Keine Verwaltung / kein Adminbereich
+- Werbliche Landingpage auf Deutsch
+- Weiß-oranges Theme
+- Bewegte Bereiche und Animationen
+- Zielgruppe: Schüler, Studierende, Projektarbeiten, Start-ups
+- STL-Datei-Auswahl im Browser
+- Preisindikation ohne Server
+- Anfrage-Zusammenfassung zum Kopieren oder per Mailto
+- SEO: Meta-Tags, Canonical, OpenGraph, JSON-LD, Sitemap, robots.txt
 
-- Startseite mit animierten Bereichen
-- Leistungsseiten: Laser, CNC, 3D Druck
-- Materialien, Portfolio, Status, Kontakt
-- Impressum, Datenschutz, AGB mit Platzhaltern
-- Admin Demo mit Dashboard, Aufträgen, Kunden, Materialien, Maschinen, Nachrichten, Einstellungen
-- JSON und CSV Export im Adminbereich
-- GIF-Animationen und große Bildassets
-- Sample-Dateien: STL, STEP, DXF, SVG
-- CNAME für musterteil.de
-
-## Admin Demo
-
-Benutzer: `admin`  
-Passwort: `musterteil2026`
-
-Wichtig: Der Adminbereich ist eine Frontend-Demo mit localStorage. Für echten Betrieb brauchst du Backend, Datenbank, sicheren Login, sicheren Datei-Upload, E-Mail-Versand und DSGVO-konforme Prozesse.
-
-## Upload zu GitHub
-
-1. ZIP entpacken.
-2. Den Inhalt des Ordners hochladen, nicht die ZIP-Datei.
-3. Im Repository müssen `index.html`, `admin.html`, `assets/`, `CNAME` direkt im Root liegen.
-4. GitHub Pages: `main` + `/root`.
+GitHub Pages kann keine echten Datei-Uploads speichern. Der Preisrechner liest die Datei nur lokal im Browser und erstellt eine unverbindliche Schätzung.
