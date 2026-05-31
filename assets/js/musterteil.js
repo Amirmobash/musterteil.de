@@ -1,0 +1,94 @@
+
+const menuBtn = document.getElementById('menuBtn');
+const mainNav = document.getElementById('mainNav');
+if(menuBtn && mainNav){menuBtn.addEventListener('click',()=>mainNav.classList.toggle('open'));}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) entry.target.classList.add('visible');
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function euro(n){return n.toLocaleString('de-DE',{style:'currency',currency:'EUR'});}
+function sizeMB(file){return file ? file.size/1024/1024 : 0;}
+
+const fileInput = document.getElementById('fileInput');
+const fileInfo = document.getElementById('fileInfo');
+if(fileInput && fileInfo){
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files[0];
+    if(!f){fileInfo.textContent='Noch keine Datei ausgewählt.';return;}
+    fileInfo.innerHTML = `<strong>${f.name}</strong><br>${sizeMB(f).toFixed(2)} MB · wird nur lokal im Browser gelesen`;
+  });
+}
+
+const quoteForm = document.getElementById('quoteForm');
+if(quoteForm){
+  quoteForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(quoteForm);
+    const f = fileInput.files[0];
+    const mb = sizeMB(f);
+    const type = fd.get('projectType');
+    const quantity = Number(fd.get('quantity') || 1);
+    const complexity = Number(fd.get('complexity') || 1);
+    const quality = Number(fd.get('quality') || 0);
+    const shipping = Number(fd.get('shipping') || 0);
+    const color = fd.get('color') || 'nicht angegeben';
+    const notes = fd.get('notes') || '';
+    const base = {small:14, student:28, prototype:42, series:62}[type] || 20;
+    const sizeFactor = Math.min(50, Math.max(0, mb * 3.2));
+    let price = (base + sizeFactor) * quantity * complexity + quality + shipping;
+    price = Math.max(10, Math.round(price));
+
+    const summary = `Musterteil Anfrage
+-----------------
+Datei: ${f ? f.name : 'keine Datei gewählt'}
+Dateigröße: ${f ? mb.toFixed(2)+' MB' : 'nicht verfügbar'}
+Projektart: ${type}
+Menge: ${quantity}
+Komplexität: ${complexity}
+Nachbearbeitung: ${quality} €
+Versand: ${shipping} €
+Farbwunsch / Hinweis: ${color}
+Preisindikation: ${euro(price)}
+
+Beschreibung:
+${notes || '-'}
+
+Hinweis: Dies ist eine unverbindliche Preisindikation. Die finale Kalkulation erfolgt nach Prüfung der Datei.`;
+
+    document.getElementById('priceOutput').textContent = 'ca. ' + euro(price);
+    document.getElementById('quoteNote').textContent = 'Unverbindliche Preisindikation. Finale Prüfung nach Sichtung der Datei.';
+    document.getElementById('quoteSummary').value = summary;
+    document.getElementById('mailtoQuote').href = 'mailto:?subject=' + encodeURIComponent('PLA 3D-Druck Anfrage Musterteil') + '&body=' + encodeURIComponent(summary);
+  });
+}
+
+const copyQuote = document.getElementById('copyQuote');
+if(copyQuote){
+  copyQuote.addEventListener('click', async () => {
+    const text = document.getElementById('quoteSummary').value;
+    if(!text) return;
+    await navigator.clipboard.writeText(text);
+    const old = copyQuote.textContent;
+    copyQuote.textContent = 'Kopiert!';
+    setTimeout(()=>copyQuote.textContent=old, 1500);
+  });
+}
+
+const contactForm = document.getElementById('contactForm');
+if(contactForm){
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(contactForm).entries());
+    const all = JSON.parse(localStorage.getItem('musterteil_contact_msgs') || '[]');
+    data.created_at = new Date().toLocaleString('de-DE');
+    all.unshift(data);
+    localStorage.setItem('musterteil_contact_msgs', JSON.stringify(all));
+    const msg = document.getElementById('contactMsg');
+    if(msg) msg.textContent = 'Nachricht wurde lokal im Browser gespeichert. Für den echten Betrieb bitte E-Mail-Adresse eintragen.';
+    contactForm.reset();
+  });
+}
