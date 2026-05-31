@@ -1,15 +1,16 @@
-# Musterteil – Werbewebsite für GitHub Pages
+# Musterteil – professionelle GitHub-Pages Werbewebsite
 
-Statische Werbewebsite für PLA-3D-Druckservice.
+Diese Version ist von modernen Fertigungsseiten inspiriert und setzt auf:
 
-- Keine Verwaltung / kein Adminbereich
-- Werbliche Landingpage auf Deutsch
-- Weiß-oranges Theme
-- Bewegte Bereiche und Animationen
-- Zielgruppe: Schüler, Studierende, Projektarbeiten, Start-ups
-- STL-Datei-Auswahl im Browser
-- Preisindikation ohne Server
-- Anfrage-Zusammenfassung zum Kopieren oder per Mailto
-- SEO: Meta-Tags, Canonical, OpenGraph, JSON-LD, Sitemap, robots.txt
+- starke Hero-Section
+- Instant-Quote / Preisrechner
+- modulare Leistungsseiten
+- Material- und Prozessdarstellung
+- große Bild- und Showcase-Bereiche
+- viele Animationen / Microinteractions
+- Fokus auf Schüler, Studierende, Maker und Prototypen
+- vollständige GitHub-Pages-Kompatibilität
 
-GitHub Pages kann keine echten Datei-Uploads speichern. Der Preisrechner liest die Datei nur lokal im Browser und erstellt eine unverbindliche Schätzung.
+## Technischer Hinweis
+
+GitHub Pages besitzt kein Backend. Datei-Auswahl und Preisrechner laufen daher ausschließlich lokal im Browser.
