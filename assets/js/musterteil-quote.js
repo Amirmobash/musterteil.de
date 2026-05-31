@@ -37,3 +37,62 @@ const copyQuote=document.getElementById('copyQuote');
 if(copyQuote){copyQuote.addEventListener('click',async()=>{const text=document.getElementById('quoteSummary').value;if(!text)return;await navigator.clipboard.writeText(text);const old=copyQuote.textContent;copyQuote.textContent='Kopiert!';setTimeout(()=>copyQuote.textContent=old,1500)})}
 const contactForm=document.getElementById('contactForm');
 if(contactForm){contactForm.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(contactForm).entries());const all=JSON.parse(localStorage.getItem('musterteil_contact_msgs')||'[]');data.created_at=new Date().toLocaleString('de-DE');all.unshift(data);localStorage.setItem('musterteil_contact_msgs',JSON.stringify(all));document.getElementById('contactMsg').textContent='Nachricht wurde lokal im Browser gespeichert. Für den echten Betrieb bitte E-Mail-Adresse eintragen.';contactForm.reset()})}
+
+// ================================
+// Musterteil status popup + cookies
+// ================================
+document.addEventListener("DOMContentLoaded", function () {
+  const statusOverlay = document.getElementById("mtStatusOverlay");
+  const statusClose = document.getElementById("mtStatusClose");
+  const statusOk = document.getElementById("mtStatusOk");
+
+  const cookieBanner = document.getElementById("mtCookieBanner");
+  const cookieAccept = document.getElementById("mtCookieAccept");
+
+  const statusKey = "musterteil_status_notice_seen";
+  const cookieKey = "musterteil_cookie_accepted";
+
+  // Show status popup once per visitor
+  if (statusOverlay && localStorage.getItem(statusKey) !== "yes") {
+    setTimeout(function () {
+      statusOverlay.classList.add("mt-visible");
+    }, 450);
+  }
+
+  function closeStatusPopup() {
+    if (!statusOverlay) return;
+    statusOverlay.classList.remove("mt-visible");
+    localStorage.setItem(statusKey, "yes");
+  }
+
+  if (statusClose) {
+    statusClose.addEventListener("click", closeStatusPopup);
+  }
+
+  if (statusOk) {
+    statusOk.addEventListener("click", closeStatusPopup);
+  }
+
+  if (statusOverlay) {
+    statusOverlay.addEventListener("click", function (event) {
+      if (event.target === statusOverlay) {
+        closeStatusPopup();
+      }
+    });
+  }
+
+  // Show cookie banner until accepted
+  if (cookieBanner && localStorage.getItem(cookieKey) !== "yes") {
+    setTimeout(function () {
+      cookieBanner.classList.add("mt-visible");
+    }, 800);
+  }
+
+  if (cookieAccept) {
+    cookieAccept.addEventListener("click", function () {
+      cookieBanner.classList.remove("mt-visible");
+      localStorage.setItem(cookieKey, "yes");
+    });
+  }
+});
+
