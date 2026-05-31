@@ -1,32 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
-    <defs>
-      <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
-      <linearGradient id="or" x1="0" x2="1"><stop stop-color="#ff8c00"/><stop offset="1" stop-color="#ffb347"/></linearGradient>
-      <filter id="blur"><feGaussianBlur stdDeviation="30"/></filter>
-    </defs>
-    <rect width="1600" height="980" fill="url(#bg)"/>
-    <circle cx="1290" cy="130" r="260" fill="#ff8c00" opacity=".18"/>
-    <circle cx="230" cy="820" r="270" fill="#ffb347" opacity=".18"/>
-    <circle cx="880" cy="760" r="180" fill="#ffd8a0" opacity=".18"/>
-    <g opacity=".25">
-      <path d="M0 160 C260 60 480 250 790 160 S1220 40 1600 220" fill="none" stroke="#ff8c00" stroke-width="10"/>
-      <path d="M0 820 C250 700 540 880 860 760 S1260 650 1600 810" fill="none" stroke="#ffb347" stroke-width="8"/>
-    </g>
-    <rect x="80" y="90" width="1440" height="760" rx="48" fill="#fff" stroke="#eee5d9" stroke-width="4"/>
-    <rect x="1060" y="155" width="330" height="145" rx="32" fill="url(#or)"/>
-    <text x="140" y="235" font-family="Arial, sans-serif" font-size="76" font-weight="900" fill="#1e1e1e">Projektbeispiel 2</text>
-    <text x="145" y="328" font-family="Arial, sans-serif" font-size="38" fill="#666">Visuelles Beispiel für Modell, Gehäuse, Prototyp oder Anschauungsobjekt.</text>
-    <g font-family="Arial, sans-serif" font-size="33" font-weight="700" fill="#333">
-      <circle cx="158" cy="462" r="12" fill="#ff8c00"/><text x="190" y="474">STL-Datei auswählen</text>
-      <circle cx="158" cy="530" r="12" fill="#ff8c00"/><text x="190" y="542">Preis sofort schätzen</text>
-      <circle cx="158" cy="598" r="12" fill="#ff8c00"/><text x="190" y="610">für Schule, Studium und Prototypen</text>
-      <circle cx="158" cy="666" r="12" fill="#ff8c00"/><text x="190" y="678">modern, verständlich und schnell</text>
-    </g>
-    <rect x="920" y="380" width="425" height="285" rx="30" fill="#fffaf3" stroke="#f3dfc2" stroke-width="3"/>
-    <rect x="955" y="425" width="355" height="26" rx="13" fill="#f4ece0"/>
-    <rect x="955" y="475" width="280" height="26" rx="13" fill="#f4ece0"/>
-    <rect x="955" y="525" width="320" height="26" rx="13" fill="#f4ece0"/>
-    <rect x="955" y="585" width="170" height="46" rx="18" fill="url(#or)"/>
-    <text x="1098" y="238" font-family="Arial, sans-serif" font-size="46" font-weight="900" fill="#fff">3D</text>
-    <text x="980" y="617" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#fff">Angebot starten</text>
-    </svg>
+<defs>
+  <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+  <linearGradient id="or" x1="0" x2="1"><stop stop-color="#ff8c00"/><stop offset="1" stop-color="#ffb347"/></linearGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
+</defs>
+<rect width="1600" height="980" fill="url(#bg)"/>
+<circle cx="1320" cy="170" r="270" fill="#ff8c00" opacity=".16"/>
+<circle cx="210" cy="810" r="310" fill="#ffb347" opacity=".18"/>
+<circle cx="860" cy="770" r="190" fill="#ffd9a4" opacity=".22"/>
+<path d="M0 165 C260 65 475 250 790 160 S1210 45 1600 220" fill="none" stroke="#ff8c00" stroke-width="11" opacity=".22"/>
+<path d="M0 825 C270 700 540 880 860 758 S1260 650 1600 810" fill="none" stroke="#ffb347" stroke-width="9" opacity=".22"/>
+<rect x="82" y="94" width="1436" height="770" rx="50" fill="#fff" stroke="#eee5d9" stroke-width="4"/>
+<rect x="1068" y="154" width="330" height="146" rx="34" fill="url(#or)"/>
+<text x="142" y="236" font-family="Arial, sans-serif" font-size="76" font-weight="900" fill="#1e1e1e">Beispielprojekt 2</text>
+<text x="146" y="330" font-family="Arial, sans-serif" font-size="38" fill="#666">PLA-Modell, Prototyp, Ersatzteil oder Präsentationsobjekt.</text>
+<g font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#333">
+  <circle cx="160" cy="460" r="12" fill="#ff8c00"/><text x="192" y="472">STL-Datei bereitstellen</text>
+  <circle cx="160" cy="528" r="12" fill="#ff8c00"/><text x="192" y="540">Druckbarkeit prüfen</text>
+  <circle cx="160" cy="596" r="12" fill="#ff8c00"/><text x="192" y="608">PLA-Druck & Qualitätskontrolle</text>
+  <circle cx="160" cy="664" r="12" fill="#ff8c00"/><text x="192" y="676">papierbasiert verpacken & versenden</text>
+</g>
+<rect x="920" y="384" width="430" height="292" rx="32" fill="#fffaf3" stroke="#f3dfc2" stroke-width="3"/>
+<rect x="960" y="428" width="350" height="28" rx="14" fill="#f4ece0"/>
+<rect x="960" y="482" width="285" height="28" rx="14" fill="#f4ece0"/>
+<rect x="960" y="536" width="330" height="28" rx="14" fill="#f4ece0"/>
+<rect x="960" y="598" width="185" height="50" rx="18" fill="url(#or)"/>
+<text x="1106" y="239" font-family="Arial, sans-serif" font-size="48" font-weight="900" fill="#fff">3D</text>
+<text x="987" y="631" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#fff">Anfrage starten</text>
+</svg>
