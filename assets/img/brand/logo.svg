@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="620" height="160" viewBox="0 0 620 160" role="img" aria-label="musterteil.de Logo">
-<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#14b8a6"/></linearGradient></defs>
-<rect width="160" height="160" rx="38" fill="#0f172a"/><path d="M38 112V48h24l18 33 18-33h24v64H99V77l-18 32h-3L60 77v35H38z" fill="url(#g)"/>
-<text x="190" y="78" font-family="Arial, sans-serif" font-weight="800" font-size="50" fill="#0f172a">musterteil.de</text>
-<text x="194" y="118" font-family="Arial, sans-serif" font-size="26" fill="#475569">3D Druck · Laser · Prototypen</text>
-</svg>
