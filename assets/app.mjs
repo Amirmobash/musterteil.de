@@ -36,22 +36,23 @@ async function getEngine(){
  })();
  try{return await engineLoad;}catch(e){engineLoad=null;throw e;}
 }
+async function limit(promise,ms=35000){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error("Slicer-Zeitlimit überschritten")),ms);})]);}finally{clearTimeout(timer);}}
 async function calculate(){
  if(!mesh||!bytes)return;
  const current=++task,s=settings();
  if(mesh.size.some(v=>v>350)){progress("Modell überschreitet 350 × 350 × 350 mm. Ausrichtung prüfen.",0);badge("BAURAUM ZU KLEIN","warn");return;}
  q("recalc").disabled=true;badge("SLICER LÄDT");progress("Kiri:Moto wird im Browser geladen …",12);
  try{
-  const Engine=await getEngine();if(current!==task)return;
+  const Engine=await limit(getEngine(),20000);if(current!==task)return;
   const engine=new Engine();
   engine.setMode("FDM").setRender(false).setController({threaded:false})
    .setDevice({deviceName:"K2 Plus – vereinfachtes Demo-Profil",bedWidth:350,bedDepth:350,maxHeight:350,originCenter:false,extrudeAbs:true,extruders:[{extFilament:1.75,extNozzle:.4,extSelect:["T0"],extDeselect:[],extOffsetX:0,extOffsetY:0}]})
    .setProcess({sliceHeight:s.layer,firstSliceHeight:s.layer,sliceShells:3,sliceTopLayers:4,sliceBottomLayers:4,sliceFillSparse:s.infill/100,sliceSupportEnable:s.support,sliceSupportDensity:.25,sliceSupportAngle:50,sliceSupportOffset:.4,sliceSupportGap:1,outputTemp:materials[s.material].temp,outputBedTemp:materials[s.material].bed,outputFeedrate:s.material==="abs"?55:65,outputFinishrate:40,outputSeekrate:125})
    .setListener(msg=>{if(current!==task)return;if(msg.slice)progress("Slicing: Schichten und Überhänge …",43);else if(msg.prepare)progress("Bereite G-Code und Stützen vor …",69);else if(msg.export)progress("Lese Extrusionsdaten …",86);});
-  await engine.parse(bytes.slice(0));if(current!==task)return;
-  await engine.slice();if(current!==task)return;
+  await limit(engine.parse(bytes.slice(0)),20000);if(current!==task)return;
+  await limit(engine.slice(),45000);if(current!==task)return;
   const sliceSupport=s.support?sliceSupportApprox(engine,materials[s.material].density):0;
-  await engine.prepare();const code=await engine.export();if(current!==task)return;
+  await limit(engine.prepare(),45000);const code=await limit(engine.export(),45000);if(current!==task)return;
   const stat=gcodeStats(code,materials[s.material].density);
   const approx=estimate(mesh,s);
   const support=s.support?Math.min(stat.total*.7,Math.max(0,stat.markedSupport??sliceSupport??approx.support)):0;
