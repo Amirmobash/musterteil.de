@@ -21,3 +21,6 @@ GitHub Pages settings should use GitHub Actions. workflow pages.yml checks code 
 NOT a calibrated printer profile, commercial quote, printability approval or promise of safety. A mere student-project notice does not waive legal requirements. COMPLETE responsible person, serviceable postal address and contact in the Impressum dialog before public deployment and check applicable German requirements. Loading remote slicer code from grid.space transmits the visitor IP address to that service, explained in Datenschutz.
 
 Reference sources: grid.space / GridSpace/grid-apps (MIT); Creality K2 Plus official specifications; Bambu Lab EU official filament price page.
+
+## Publishing after visibility change (2026-11-12)
+The repository was switched to public. This documentation-only change triggers a fresh Pages build/deployment, provided GitHub Pages is enabled and its publishing source is correctly configured. The intended custom domain is **musterteil.de** (not mustertail.de). A public repository can use GitHub Pages and standard hosted Actions without paid Actions minutes.
