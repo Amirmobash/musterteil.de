@@ -1,26 +1,38 @@
 # Musterteil LAB
 
-One HTML page. German-language, non-commercial student demonstration for educational printing-cost calculation. No storefront, no payments, no orders, no forms, no analytics or cookies.
+Eine einzelne statische HTML-Seite für eine nichtkommerzielle, studentische Druckkostenschätzung. Lokale STL-Analyse, interaktive Three.js-Ansicht und transparente Material-/Stromkosten. Keine Bestellungen, Konten, Zahlungen, Tracker oder Cookies.
 
-## Design and features
-- One-page responsive design, no desktop scrolling on standard laptop/desktop viewports (very short viewports and phones may scroll for accessibility).
-- Drag-and-drop STL (binary or ASCII, maximum 25 MB); model stays in visitor browser.
-- ABS selected by default; PLA Basic and PETG HF selectable; material details appear on selection.
-- Layer height, infill, support toggle; nominal example geometry from Creality K2 Plus.
-- Local geometry preview of mass and costs, explicitly labeled a rough estimate.
-- Attempts genuine browser slicing through free, MIT-licensed Kiri:Moto API from grid.space. When successful, GCode is parsed to derive extruded filament. Support grams are separated by GCode feature labels or estimated from support contours/geometry; time uses GCode motion and a warmup allowance. When engine is unavailable there is no fake 'sliced' result.
-- Last validated Bambu EU regular 1 kg with-spool reference prices are stored in prices.json. Automated price checks are disabled to prevent recurring workflow usage. The reference remains dated and is not a live shop price.
-- Price is a material-and-electricity *calculation*, not an offer: grams/1000 * EUR/kg + hours * 0.2 kW * 0.35 EUR/kWh. No wages, tax, shipping or markup.
-- Informational and legal panels are dialogs on the same HTML page.
+## Lokal entwickeln
 
-## Tests and deployment
-Run: node --test tests/core.test.mjs
-**Enable GitHub Pages once** in Settings → Pages → Build and deployment:\n1. Source: **Deploy from a branch**.\n2. Branch: **main**.\n3. Folder: **/(root)**.\n4. Click **Save**.\n\nThe site then publishes from the repository root via the standard GitHub Pages branch publishing mechanism. **No custom deployment workflow or paid service is needed.** The `CNAME` file contains `musterteil.de`. Pages must be enabled in the UI by a repository administrator; a commit alone cannot enable a disabled Pages site with the standard `GITHUB_TOKEN`.
+Voraussetzungen: Node.js ab 22 und Python 3. Kein Build erforderlich; die Website benötigt zur Laufzeit keine npm-Installation. Three.js 0.180.0 samt STLLoader und OrbitControls liegt lokal unter `assets/vendor/three` (MIT).
 
-## Limitations and legal requirements
-NOT a calibrated printer profile, commercial quote, printability approval or promise of safety. A mere student-project notice does not waive legal requirements. COMPLETE responsible person, serviceable postal address and contact in the Impressum dialog before public deployment and check applicable German requirements. Loading remote slicer code from grid.space transmits the visitor IP address to that service, explained in Datenschutz.
+```sh
+npm ci                         # nur für die Browser-Testwerkzeuge
+npm run dev                    # statischer Server, Port 8765
+npm test                       # 10 Tests für STL, Verbrauch und G-Code
+npm run test:browser            # bei laufendem Server
+```
 
-Reference sources: grid.space / GridSpace/grid-apps (MIT); Creality K2 Plus official specifications; Bambu Lab EU official filament price page.
+Die Browser-Prüfung verwendet `/usr/bin/chromium`, alternativ `CHROMIUM_PATH` oder den von Playwright installierten Chromium. Falls keiner vorhanden ist: `npx playwright install chromium`. `TEST_BASE_URL` kann den Standard-Testserver überschreiben. Sie prüft die Desktop-Ansicht bei 1280×720, 1366×768, 1440×900 und 1920×1080 sowie 390×844 auf dem Smartphone; außerdem Upload, Drag-and-drop, echte Geometrie, Orbit/Zoom/Reset, Drahtgitter, Kostenänderungen, Dialoge, Fehlerfälle, Video und WebGL-Fallback. Screenshots landen im ignorierten Ordner `test-results/`.
 
-## GitHub Pages recovery (2026-11-14)
-The repository is public. The earlier GitHub Actions publishing workflow failed because Pages had not been enabled. The failing workflow has been removed to avoid unnecessary Actions runs. Use **Deploy from a branch → main → /(root) → Save**. The intended domain is `musterteil.de` (not `mustertail.de`). If the custom domain is not present in Settings → Pages after enabling Pages, add `musterteil.de` there and follow GitHub's domain/DNS verification guidance. Do not subscribe to GitHub Enterprise or start a paid trial.
+## Bedienung und Grenzen
+
+- Binäre oder ASCII-STL bis 25 MB / 500.000 Dreiecke auswählen oder ablegen. Die Datei bleibt im Browser; Koordinaten werden als Millimeter interpretiert.
+- ABS ist vorausgewählt; PLA Basic und PETG HF stehen ebenfalls zur Verfügung. Schichthöhe, Fülldichte und Stützen ändern die geometrische Schätzung sofort.
+- Der Viewer stellt ausschließlich tatsächlich eingelesene Geometrie dar. Maus/Touch drehen und zoomen, Pfeiltasten schwenken bei fokussierter Modellansicht. Ansicht zurücksetzen und Drahtgitter sind separat bedienbar.
+- „Mit Slicer berechnen“ lädt optional Kiri:Moto von grid.space. Nur ein erfolgreich exportierter, auswertbarer G-Code wird als „G-Code analysiert“ bezeichnet. Bei Fehlern bleibt „Geometrische Schätzung“ sichtbar. Netzwerkausfall ist getestet, echtes Slicing ist im eingeschränkten Entwicklungsnetz nicht erfolgreich validiert.
+- G-Code-Verbrauch berücksichtigt Rückzug und Wiederzufuhr. Stützanteile und Zeit können auch bei erfolgreichem Slicing Schätzungen bleiben. Kein kalibriertes Druckerprofil.
+- Referenzpreise in `prices.json`: Stand 11.11.2026, unverändert übernommen, keine neue Preisbestätigung. Keine Live-Abfrage. Keine wiederkehrenden GitHub-Actions-Aufgaben.
+- Kosten: Gramm / 1000 × €/kg + Stunden × 0,20 kW × 0,35 €/kWh. Kein Arbeitslohn, Versand oder Aufschlag.
+- Hintergrundvideo: eigene prozedurale Blender-Animation, lokal als H.264-MP4 plus WebP-Standbild. Kein Stockmaterial, keine externen Assets oder kostenpflichtigen Dienste. CC0, siehe [Medienherkunft und Reproduktion](assets/video/LICENSE.md).
+- Video pausiert bei reduzierter Bewegung und verborgenem Tab. Die 3D-Ansicht rendert bei Änderungen und gibt Geometrien, Controls und WebGL-Ressourcen beim Verlassen frei. Bei fehlendem WebGL bleibt die Kostenschätzung nutzbar.
+
+[Modellannahmen, Quellen und Slicer-Auswahl](docs/methodology.md).
+
+## Veröffentlichung auf GitHub Pages
+
+Repository-Einstellungen → Pages → **Deploy from a branch** → **main** → **/(root)** → Save. Keine eigene Build-/Deployment-Action, kein kostenpflichtiges Hosting. `CNAME` enthält `musterteil.de`; DNS und Domainverifikation müssen dazu passen. Der Push eines Commits allein bestätigt keine aktive Pages-Veröffentlichung.
+
+**Vor öffentlicher Veröffentlichung fehlen weiterhin Name, ladungsfähige Anschrift und Kontakt der verantwortlichen Person im Impressum.** Diese Daten werden nicht erfunden. Die Bezeichnung „Studienprojekt“ hebt Informationspflichten nicht auf. Die rechtlichen Angaben und Datenschutzhinweise müssen vor dem öffentlichen Betrieb geprüft und vervollständigt werden.
+
+Die gehostete externe Kiri-Engine kann sich ändern und erhält beim Laden technisch notwendige Verbindungsdaten. Three.js, Video, CSS, Preise und Anwendungslogik werden dagegen vom eigenen statischen Ursprung geladen.
