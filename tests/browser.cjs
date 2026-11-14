@@ -170,18 +170,18 @@ async function upload(page) {
     await page.waitForFunction(
       () =>
         getComputedStyle(document.querySelector("#drop")).borderTopColor ===
-        "rgb(255, 145, 78)",
+        "rgb(255, 212, 143)",
     );
     assert.equal(
       await page
         .locator("#drop")
         .evaluate((el) => getComputedStyle(el).borderTopColor),
-      "rgb(255, 145, 78)",
+      "rgb(255, 212, 143)",
     );
-    const initial = await page.locator("#total").textContent();
+    const initial = await page.locator("#filamentCost").textContent();
     await page.locator("#infill").fill("80");
     await page.locator("#infill").dispatchEvent("input");
-    assert.notEqual(await page.locator("#total").textContent(), initial);
+    assert.notEqual(await page.locator("#filamentCost").textContent(), initial, "infill must change real filament costs even when the EUR 12 comparison floor applies");
     await page.locator("#material").selectOption("petg");
     assert.match(await page.locator("#materialNote").textContent(), /PETG/);
     await page.locator("#support").uncheck();
@@ -378,21 +378,21 @@ async function upload(page) {
     await pricePage.route("**/prices.json", async (route) => {
       await priceGate;
       await route.fulfill({
-        json: { ...reference, materials: { abs: 50, pla: 50, petg: 50 } },
+        json: { ...reference, materials: { ...reference.materials, abs: 50, pla: 50, petg: 50 } },
       });
     });
     try {
       await pricePage.goto(base);
       await upload(pricePage);
-      const previous = await pricePage.locator("#total").textContent();
+      const previous = await pricePage.locator("#filamentCost").textContent();
       deliverPrices();
       await pricePage.waitForFunction(
         () => document.querySelector("#kgPrice").textContent === "50,00 € / kg",
       );
       assert.notEqual(
-        await pricePage.locator("#total").textContent(),
+        await pricePage.locator("#filamentCost").textContent(),
         previous,
-        "a late price response must refresh the cost result too",
+        "a late price response must refresh material costs even under the EUR 12 scenario floor",
       );
     } finally {
       deliverPrices();
