@@ -2,9 +2,29 @@
   "materials": {
     "abs": 25.99,
     "pla": 25.99,
-    "petg": 25.99
+    "petg": 25.99,
+    "pla_matte": 25.99,
+    "petg_translucent": 25.99,
+    "pla_silk": 25.99,
+    "asa": 24.99,
+    "tpu": 34.99,
+    "pc": 42.99,
+    "petg_cf": 35.99
   },
-  "verified": "2026-11-11",
+  "verified": "2026-11-14",
   "source": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
-  "description": "Official Bambu Lab EU standard 1 kg spool price reference; excluding bulk discounts. Not a guaranteed live price."
+  "sources": {
+    "abs": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "pla": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "petg": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "pla_matte": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "petg_translucent": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "pla_silk": "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+    "asa": "https://bambulab-eu.myshopify.com/de/products/asa-filament-de",
+    "tpu": "https://bambulab-eu.myshopify.com/de/products/tpu-95a-hf-de",
+    "pc": "https://bambulab-eu.myshopify.com/de/products/pc-filament-de",
+    "petg_cf": "https://bambulab-eu.myshopify.com/de/products/petg-cf-de"
+  },
+  "priceType": "Illustrative single-spool/1kg manufacturer catalogue reference, including listed promotional prices for ASA/TPU/PETG-CF where shown; not guaranteed retail prices, may vary by variant, promotions and availability.",
+  "description": "Dated public manufacturer source snapshots researched 2026-11-14. No automatic price fetch, no claim of real-time availability. See each linked product page to verify."
 }
