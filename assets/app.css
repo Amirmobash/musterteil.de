@@ -239,6 +239,7 @@ main {
   background: linear-gradient(130deg, #ffffff06, #ffffff01);
   transition: 0.2s;
 }
+.drop:focus-within,
 .drop.dragging,
 .drop:hover {
   border-color: var(--accent);

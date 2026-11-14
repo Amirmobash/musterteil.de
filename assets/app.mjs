@@ -10,12 +10,14 @@ const q = (id) => document.getElementById(id);
 let mesh = null,
   bytes = null,
   task = 0,
+  fileTask = 0,
   engineLoad = null,
   prices = { abs: 25.99, pla: 25.99, petg: 25.99 },
   verified = "2026-11-11",
   source = "https://bambulab-eu.myshopify.com/de/pages/bambu-filament";
 let viewer = null,
-  slicingBusy = false;
+  slicingBusy = false,
+  lastResult = null;
 const viewerReady = import("./viewer.mjs")
   .then(({ createViewer }) => {
     viewer = createViewer(q("viewer"));
@@ -71,6 +73,11 @@ async function loadPrices() {
     const res = await fetch("./prices.json", { cache: "no-store" }),
       x = await res.json();
     if (
+      res.ok &&
+      typeof x.verified === "string" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(x.verified) &&
+      typeof x.source === "string" &&
+      new URL(x.source).protocol === "https:" &&
       ["abs", "pla", "petg"].every(
         (k) =>
           Number.isFinite(x.materials?.[k]) &&
@@ -84,8 +91,10 @@ async function loadPrices() {
     }
   } catch {}
   materialUI();
+  if (lastResult) render(lastResult.data, lastResult.real);
 }
 function render(d, real = false) {
+  lastResult = { data: d, real };
   const c = costs(d.total, d.hours, prices[settings().material]);
   q("total").textContent = fmt(c.total);
   q("time").textContent = hours(d.hours);
@@ -96,7 +105,7 @@ function render(d, real = false) {
   q("filamentCost").textContent = eu(c.filament);
   q("powerCost").textContent = eu(c.power);
   q("resultInfo").textContent = real
-    ? "Extrusion aus geslictem G-Code; Zeit und Stützanteil teils geschätzt."
+    ? "Material aus G-Code berechnet; Druckzeit und Stützanteil teils geschätzt."
     : "Geometrische Schätzung · ohne Slicing-Daten.";
   badge(
     real ? "G-Code analysiert" : "Geometrische Schätzung",
@@ -152,6 +161,7 @@ async function limit(promise, ms = 35000) {
       }),
     ]);
   } finally {
+    clearTimeout(timer);
   }
 }
 async function calculate() {
@@ -272,8 +282,7 @@ async function calculate() {
       100,
     );
     q("engineInfo").textContent =
-      "Slicer momentan nicht verfügbar: " +
-      String(error.message || error).slice(0, 95);
+      "Slicer momentan nicht verfügbar. Die geometrische Schätzung bleibt erhalten.";
     console.warn("Kiri slicing failed:", error);
   } finally {
     if (workerURL) URL.revokeObjectURL(workerURL);
@@ -293,6 +302,9 @@ function updateEstimate() {
 }
 async function fileChosen(file) {
   if (!file) return;
+  const my = ++fileTask;
+  task++;
+  q("viewer").setAttribute("aria-busy", "false");
   if (!/\.stl$/i.test(file.name)) {
     progress("Bitte nur eine STL-Datei wählen.", 0);
     return;
@@ -301,10 +313,12 @@ async function fileChosen(file) {
     progress("Datei zu groß: maximal 25 MB.", 0);
     return;
   }
-  const my = ++task;
+  badge("Modell wird gelesen");
+  progress("Modell wird analysiert …", 0);
+  q("viewer").setAttribute("aria-busy", "true");
   try {
     const data = await file.arrayBuffer();
-    if (my !== task) return;
+    if (my !== fileTask) return;
     const parsed = geometrySTL(data);
     bytes = data;
     mesh = parsed;
@@ -318,7 +332,7 @@ async function fileChosen(file) {
     q("recalc").disabled = slicingBusy;
     rough();
     const display = await viewerReady;
-    if (bytes !== data) return;
+    if (my !== fileTask) return;
     try {
       display?.load(data);
     } catch (error) {
@@ -337,8 +351,11 @@ async function fileChosen(file) {
     q("engineInfo").textContent =
       "Geometrische Schätzung bereit. Der optionale Slicer lädt Software von grid.space.";
   } catch (e) {
+    if (my !== fileTask) return;
     progress(e.message || "STL konnte nicht gelesen werden.", 0);
     badge("Datei nicht lesbar", "warn");
+  } finally {
+    if (my === fileTask) q("viewer").setAttribute("aria-busy", "false");
   }
 }
 q("upload").addEventListener("change", (e) => fileChosen(e.target.files?.[0]));
@@ -388,12 +405,26 @@ const video = q("labVideo"),
   motion = matchMedia("(prefers-reduced-motion: reduce)");
 let pausedByUser = motion.matches;
 function videoState() {
+  if (
+    video.error ||
+    video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE
+  ) {
+    videoUnavailable();
+    return;
+  }
   const pause = pausedByUser || document.hidden;
   q("motionToggle").textContent = pause ? "Video abspielen" : "Video pausieren";
   q("motionToggle").setAttribute("aria-pressed", String(pause));
   if (pause) video.pause();
   else
     video.play().catch(() => {
+      if (
+        video.error ||
+        video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE
+      ) {
+        videoUnavailable();
+        return;
+      }
       pausedByUser = true;
       q("motionToggle").textContent = "Video abspielen";
       q("motionToggle").setAttribute("aria-pressed", "true");
@@ -408,10 +439,15 @@ motion.addEventListener("change", () => {
   videoState();
 });
 document.addEventListener("visibilitychange", videoState);
-video.addEventListener("error", () => {
+function videoUnavailable() {
+  pausedByUser = true;
+  video.pause();
   q("motionToggle").textContent = "Video nicht verfügbar";
+  q("motionToggle").setAttribute("aria-pressed", "true");
   q("motionToggle").disabled = true;
-});
+}
+video.addEventListener("error", videoUnavailable);
+video.querySelector("source").addEventListener("error", videoUnavailable);
 window.addEventListener("pagehide", (event) => {
   if (!event.persisted) viewer?.dispose();
 });

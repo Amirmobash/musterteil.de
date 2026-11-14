@@ -105,6 +105,11 @@ export function createViewer(container) {
   controls.addEventListener("change", wake);
   controls.addEventListener("start", wake);
   function fit() {
+    // Flush a previous gesture before applying the fitted pose. Otherwise a
+    // reset during damping keeps moving the camera away from its new position.
+    const damping = controls.enableDamping;
+    controls.enableDamping = false;
+    controls.update();
     const size = model
       ? new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3())
       : new THREE.Vector3(130, 80, 130);
@@ -115,6 +120,7 @@ export function createViewer(container) {
     const distance =
       ((radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2))) * 1.18) /
       Math.min(camera.aspect, 1);
+    controls.maxDistance = Math.max(1700, distance * 4);
     camera.position
       .copy(center)
       .add(new THREE.Vector3(1, 0.8, 1.3).normalize().multiplyScalar(distance));
@@ -123,6 +129,7 @@ export function createViewer(container) {
     camera.updateProjectionMatrix();
     controls.target.copy(center);
     controls.update();
+    controls.enableDamping = damping;
     wake();
   }
   const resize = new ResizeObserver(() => {

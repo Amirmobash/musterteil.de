@@ -13,7 +13,7 @@ npm test                       # 10 Tests für STL, Verbrauch und G-Code
 npm run test:browser            # bei laufendem Server
 ```
 
-Die Browser-Prüfung verwendet `/usr/bin/chromium`, alternativ `CHROMIUM_PATH` oder den von Playwright installierten Chromium. Falls keiner vorhanden ist: `npx playwright install chromium`. `TEST_BASE_URL` kann den Standard-Testserver überschreiben. Sie prüft die Desktop-Ansicht bei 1280×720, 1366×768, 1440×900 und 1920×1080 sowie 390×844 auf dem Smartphone; außerdem Upload, Drag-and-drop, echte Geometrie, Orbit/Zoom/Reset, Drahtgitter, Kostenänderungen, Dialoge, Fehlerfälle, Video und WebGL-Fallback. Screenshots landen im ignorierten Ordner `test-results/`.
+Die Browser-Prüfung verwendet `/usr/bin/chromium`, alternativ `CHROMIUM_PATH` oder den von Playwright installierten Chromium. Falls keiner vorhanden ist: `npx playwright install chromium`. `TEST_BASE_URL` kann den Standard-Testserver überschreiben. Sie prüft die Desktop-Ansicht bei 1280×720, 1366×768, 1440×900 und 1920×1080 sowie 390×844 auf dem Smartphone; außerdem Binär-/ASCII-Upload, Drag-and-drop, echte Geometrie, Orbit/Zoom/Reset bei angehaltenem Hintergrundvideo, Drahtgitter, Kostenänderungen, verspätete Preisantworten, Dialoge, Fehlerfälle, Video und WebGL-Fallback. Ein zusätzlicher Lauf prüft relative Modul- und Medienpfade unter einem GitHub-Pages-Unterpfad. Screenshots landen im ignorierten Ordner `test-results/`.
 
 ## Bedienung und Grenzen
 

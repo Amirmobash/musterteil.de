@@ -42,14 +42,38 @@ function cube() {
   );
   return b;
 }
+function asciiCube() {
+  const b = cube();
+  const facets = [];
+  for (let i = 0; i < 12; i++) {
+    const vertices = Array.from(
+      { length: 3 },
+      (_, vertex) =>
+        "vertex " +
+        [0, 1, 2]
+          .map((axis) =>
+            b.readFloatLE(84 + i * 50 + 12 + vertex * 12 + axis * 4),
+          )
+          .join(" "),
+    );
+    facets.push(
+      [
+        "facet normal 0 0 0",
+        "outer loop",
+        ...vertices,
+        "endloop",
+        "endfacet",
+      ].join("\n"),
+    );
+  }
+  return Buffer.from(["solid cube", ...facets, "endsolid cube"].join("\n"));
+}
 async function upload(page) {
-  await page
-    .locator("#upload")
-    .setInputFiles({
-      name: "Würfel.stl",
-      mimeType: "application/octet-stream",
-      buffer: cube(),
-    });
+  await page.locator("#upload").setInputFiles({
+    name: "Würfel.stl",
+    mimeType: "application/octet-stream",
+    buffer: cube(),
+  });
   await page.waitForFunction(
     () => document.querySelector("#viewer").dataset.loaded === "true",
   );
@@ -72,8 +96,27 @@ async function upload(page) {
   });
   const errors = [];
   const context = await browser.newContext();
+  // Track stage deadlines so a quick network failure cannot leave timers alive.
+  await context.addInitScript(() => {
+    const originalSet = window.setTimeout.bind(window);
+    const originalClear = window.clearTimeout.bind(window);
+    const deadlines = new Set();
+    window.setTimeout = (callback, delay, ...args) => {
+      const id = originalSet(() => {
+        deadlines.delete(id);
+        callback(...args);
+      }, delay);
+      if (delay >= 20000 && delay <= 45000) deadlines.add(id);
+      return id;
+    };
+    window.clearTimeout = (id) => {
+      deadlines.delete(id);
+      originalClear(id);
+    };
+    window.pendingStageDeadlines = () => deadlines.size;
+  });
+  context.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
   const page = await context.newPage();
-  page.on("pageerror", (e) => errors.push(e.message));
   await context.route("https://grid.space/**", (route) => route.abort());
   fs.mkdirSync("test-results", { recursive: true });
   try {
@@ -123,6 +166,18 @@ async function upload(page) {
       );
     }
     await page.setViewportSize({ width: 1366, height: 768 });
+    await page.locator("#upload").focus();
+    await page.waitForFunction(
+      () =>
+        getComputedStyle(document.querySelector("#drop")).borderTopColor ===
+        "rgb(255, 145, 78)",
+    );
+    assert.equal(
+      await page
+        .locator("#drop")
+        .evaluate((el) => getComputedStyle(el).borderTopColor),
+      "rgb(255, 145, 78)",
+    );
     const initial = await page.locator("#total").textContent();
     await page.locator("#infill").fill("80");
     await page.locator("#infill").dispatchEvent("input");
@@ -138,6 +193,9 @@ async function upload(page) {
     );
     await page.locator("#wireframe").click();
     const canvas = page.locator("#viewer canvas");
+    // Freeze the film: only the actual model/camera may change these images.
+    await page.locator("#labVideo").evaluate((video) => video.pause());
+    await page.locator("#resetView").click();
     await page.waitForTimeout(500);
     const box = await canvas.boundingBox();
     const before = await page.screenshot({ clip: box });
@@ -150,10 +208,32 @@ async function upload(page) {
     );
     await page.mouse.up();
     await page.waitForTimeout(600);
-    assert.notDeepEqual(await page.screenshot({ clip: box }), before);
-    await page.mouse.wheel(0, -200);
-    await page.waitForTimeout(250);
+    const rotated = await page.screenshot({ clip: box });
+    assert.notDeepEqual(
+      rotated,
+      before,
+      "orbit must change the model view with a stationary film",
+    );
+    // Reset while damping is still active; the fitted view must not drift.
     await page.locator("#resetView").click();
+    await page.waitForTimeout(500);
+    assert.deepEqual(
+      await page.screenshot({ clip: box }),
+      before,
+      "reset must restore the fitted view",
+    );
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.wheel(0, -200);
+    await page.waitForTimeout(600);
+    const zoomed = await page.screenshot({ clip: box });
+    assert.notDeepEqual(zoomed, before, "zoom must change the model view");
+    await page.locator("#resetView").click();
+    await page.waitForTimeout(500);
+    assert.deepEqual(
+      await page.screenshot({ clip: box }),
+      before,
+      "reset must undo zoom",
+    );
     // Native drag-and-drop with a real File exercises the second upload path.
     await page.evaluate(
       (data) => {
@@ -163,15 +243,13 @@ async function upload(page) {
             type: "application/octet-stream",
           }),
         );
-        document
-          .querySelector("#drop")
-          .dispatchEvent(
-            new DragEvent("drop", {
-              bubbles: true,
-              cancelable: true,
-              dataTransfer: dt,
-            }),
-          );
+        document.querySelector("#drop").dispatchEvent(
+          new DragEvent("drop", {
+            bubbles: true,
+            cancelable: true,
+            dataTransfer: dt,
+          }),
+        );
       },
       [...cube()],
     );
@@ -191,35 +269,46 @@ async function upload(page) {
       await page.locator("#state").textContent(),
       "Geometrische Schätzung",
     );
-    await page
-      .locator("#upload")
-      .setInputFiles({
-        name: "Fehler.stl",
-        mimeType: "application/octet-stream",
-        buffer: Buffer.from("broken"),
-      });
+    assert.equal(await page.evaluate(() => window.pendingStageDeadlines()), 0);
+    await page.locator("#upload").setInputFiles({
+      name: "ASCII-Würfel.stl",
+      mimeType: "application/octet-stream",
+      buffer: asciiCube(),
+    });
+    await page.waitForFunction(
+      () =>
+        document.querySelector("#fileLabel").textContent ===
+          "ASCII-Würfel.stl" &&
+        document.querySelector("#viewer").getAttribute("aria-busy") === "false",
+    );
+    assert.match(
+      await page.locator("#sizeInfo").textContent(),
+      /20,0 × 20,0 × 20,0 mm/,
+    );
+    assert.equal(await page.locator("#viewerEmpty").isVisible(), false);
+    await page.locator("#upload").setInputFiles({
+      name: "Fehler.stl",
+      mimeType: "application/octet-stream",
+      buffer: Buffer.from("broken"),
+    });
     await page.waitForFunction(
       () =>
         document.querySelector("#state").textContent === "Datei nicht lesbar",
     );
-    await page
-      .locator("#upload")
-      .setInputFiles({
-        name: "kein-modell.txt",
-        mimeType: "text/plain",
-        buffer: Buffer.from("x"),
-      });
+    await page.locator("#upload").setInputFiles({
+      name: "kein-modell.txt",
+      mimeType: "text/plain",
+      buffer: Buffer.from("x"),
+    });
     assert.match(
       await page.locator("#progressText").textContent(),
       /STL-Datei/,
     );
-    await page
-      .locator("#upload")
-      .setInputFiles({
-        name: "zu-gross.stl",
-        mimeType: "application/octet-stream",
-        buffer: Buffer.alloc(25 * 1024 * 1024 + 1),
-      });
+    await page.locator("#upload").setInputFiles({
+      name: "zu-gross.stl",
+      mimeType: "application/octet-stream",
+      buffer: Buffer.alloc(25 * 1024 * 1024 + 1),
+    });
     assert.match(
       await page.locator("#progressText").textContent(),
       /maximal 25 MB/,
@@ -280,6 +369,95 @@ async function upload(page) {
       await reduced.close();
       console.log("PASS real MP4 playback, pause/resume, reduced-motion pause");
     } else console.log("SKIPPED video checks (--without-video)");
+    const pricePage = await context.newPage();
+    let deliverPrices;
+    const priceGate = new Promise((resolve) => {
+      deliverPrices = resolve;
+    });
+    const reference = JSON.parse(fs.readFileSync("prices.json", "utf8"));
+    await pricePage.route("**/prices.json", async (route) => {
+      await priceGate;
+      await route.fulfill({
+        json: { ...reference, materials: { abs: 50, pla: 50, petg: 50 } },
+      });
+    });
+    try {
+      await pricePage.goto(base);
+      await upload(pricePage);
+      const previous = await pricePage.locator("#total").textContent();
+      deliverPrices();
+      await pricePage.waitForFunction(
+        () => document.querySelector("#kgPrice").textContent === "50,00 € / kg",
+      );
+      assert.notEqual(
+        await pricePage.locator("#total").textContent(),
+        previous,
+        "a late price response must refresh the cost result too",
+      );
+    } finally {
+      deliverPrices();
+      await pricePage.close();
+    }
+    const invalidPricePage = await context.newPage();
+    await invalidPricePage.route("**/prices.json", (route) =>
+      route.fulfill({ json: { materials: reference.materials } }),
+    );
+    await invalidPricePage.goto(base);
+    await upload(invalidPricePage);
+    assert.equal(
+      await invalidPricePage.locator("#kgPrice").textContent(),
+      "25,99 € / kg",
+    );
+    await invalidPricePage.close();
+    console.log(
+      "PASS delayed prices refresh costs; incomplete price metadata preserves the dated reference",
+    );
+
+    // A repository Pages mount must resolve all relative imports and media.
+    const mounted = await context.newPage();
+    const mountedURL = base.replace(/\/$/, "") + "/musterteil.de/";
+    await mounted.route(mountedURL + "**", async (route) => {
+      const response = await route.fetch({
+        url: route
+          .request()
+          .url()
+          .replace(mountedURL, base.replace(/\/$/, "") + "/"),
+      });
+      await route.fulfill({ response });
+    });
+    await mounted.goto(mountedURL);
+    await upload(mounted);
+    if (videoCheck)
+      await mounted.waitForFunction(
+        () => document.querySelector("#labVideo").readyState >= 2,
+      );
+    assert.equal(await mounted.locator("#viewerEmpty").isVisible(), false);
+    await mounted.close();
+    console.log(
+      "PASS GitHub Pages-style repository subpath: HTML, module imports, STL and local media",
+    );
+
+    const missingVideo = await context.newPage();
+    await missingVideo.route("**/assets/video/bg-lab.mp4", (route) =>
+      route.abort(),
+    );
+    await missingVideo.goto(base);
+    await missingVideo.waitForFunction(
+      () => document.querySelector("#motionToggle").disabled,
+    );
+    assert.equal(
+      await missingVideo.locator("#motionToggle").textContent(),
+      "Video nicht verfügbar",
+    );
+    assert.match(
+      await missingVideo.locator("#labVideo").getAttribute("poster"),
+      /bg-lab\.webp$/,
+    );
+    await missingVideo.close();
+    console.log(
+      "PASS missing-video fallback keeps the local poster and reports unavailability",
+    );
+
     const fallback = await browser.newContext();
     await fallback.addInitScript(() => {
       const original = HTMLCanvasElement.prototype.getContext;
@@ -288,19 +466,18 @@ async function upload(page) {
       };
     });
     const fp = await fallback.newPage();
+    fp.on("pageerror", (e) => errors.push(e.message));
     await fp.goto(base);
     await fp.waitForFunction(() =>
       document
         .querySelector("#viewerEmpty")
         .textContent.includes("3D-Ansicht nicht verfügbar"),
     );
-    await fp
-      .locator("#upload")
-      .setInputFiles({
-        name: "Wuerfel.stl",
-        mimeType: "application/octet-stream",
-        buffer: cube(),
-      });
+    await fp.locator("#upload").setInputFiles({
+      name: "Wuerfel.stl",
+      mimeType: "application/octet-stream",
+      buffer: cube(),
+    });
     await fp.waitForFunction(
       () => document.querySelector("#total").textContent !== "—",
     );

@@ -7,7 +7,7 @@ export const materials = {
     bed: 100,
     flow: 4.4,
     details:
-      "ABS ist zäh und wärmebeständiger als PLA; neigt zum Verzug und benötigt einen geschlossenen Bauraum.",
+      "ABS ist zäh und wärmebeständiger als PLA. Ein geschlossener Bauraum hilft gegen Verzug.",
   },
   pla: {
     name: "PLA Basic",
@@ -16,7 +16,7 @@ export const materials = {
     bed: 60,
     flow: 5.1,
     details:
-      "PLA ist steif, vergleichsweise einfach zu drucken und gut für Modelle; bei höherer Wärme wenig beständig.",
+      "PLA ist steif und lässt sich meist einfach drucken. Es eignet sich gut für Modelle, verträgt aber wenig Wärme.",
   },
   petg: {
     name: "PETG HF",
@@ -25,7 +25,7 @@ export const materials = {
     bed: 75,
     flow: 4.7,
     details:
-      "PETG ist robust und zäh mit guter Feuchtigkeitsbeständigkeit; es kann Fäden bilden und weniger steif als PLA sein.",
+      "PETG ist zäh und weniger steif als PLA. Beim Drucken können Fäden entstehen.",
   },
 };
 const bound = (v, min, max) => Math.max(min, Math.min(max, v));
