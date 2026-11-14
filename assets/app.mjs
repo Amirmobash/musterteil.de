@@ -5,6 +5,7 @@ import {
   gcodeStats,
   sliceSupportApprox,
   costs,
+  comparisonCosts,
 } from "./core.mjs";
 const q = (id) => document.getElementById(id);
 let mesh = null,
@@ -12,9 +13,13 @@ let mesh = null,
   task = 0,
   fileTask = 0,
   engineLoad = null,
-  prices = { abs: 25.99, pla: 25.99, petg: 25.99 },
-  verified = "2026-11-11",
-  source = "https://bambulab-eu.myshopify.com/de/pages/bambu-filament";
+  prices = {
+    abs:25.99,pla:25.99,petg:25.99,pla_matte:25.99,petg_translucent:25.99,
+    pla_silk:25.99,asa:24.99,tpu:34.99,pc:42.99,petg_cf:35.99
+  },
+  verified = "2026-11-14",
+  source = "https://bambulab-eu.myshopify.com/de/pages/bambu-filament",
+  priceSources = {};
 let viewer = null,
   slicingBusy = false,
   lastResult = null;
@@ -66,7 +71,7 @@ function materialUI() {
   q("kgPrice").textContent = eu(prices[s.material]) + " / kg";
   q("priceDate").textContent =
     "STAND " + verified.split("-").reverse().join(".");
-  q("priceLink").href = source;
+  q("priceLink").href = priceSources[s.material] || source;
 }
 async function loadPrices() {
   try {
@@ -78,16 +83,18 @@ async function loadPrices() {
       /^\d{4}-\d{2}-\d{2}$/.test(x.verified) &&
       typeof x.source === "string" &&
       new URL(x.source).protocol === "https:" &&
-      ["abs", "pla", "petg"].every(
+      Object.keys(materials).every(
         (k) =>
           Number.isFinite(x.materials?.[k]) &&
           x.materials[k] >= 10 &&
-          x.materials[k] < 100,
+          x.materials[k] < 200 &&
+          (!x.sources?.[k] || /^https:\/\//.test(x.sources[k])),
       )
     ) {
       prices = x.materials;
       verified = x.verified;
       source = x.source;
+      priceSources = x.sources || {};
     }
   } catch {}
   materialUI();
@@ -95,7 +102,7 @@ async function loadPrices() {
 }
 function render(d, real = false) {
   lastResult = { data: d, real };
-  const c = costs(d.total, d.hours, prices[settings().material]);
+  const c = comparisonCosts(d.total, d.hours, prices[settings().material], d.support);
   q("total").textContent = fmt(c.total);
   q("time").textContent = hours(d.hours);
   q("part").textContent = g(d.part);
@@ -104,9 +111,12 @@ function render(d, real = false) {
   q("supportNote").textContent = d.supportKind;
   q("filamentCost").textContent = eu(c.filament);
   q("powerCost").textContent = eu(c.power);
+  q("machineCost").textContent = eu(c.machine);
+  q("handlingCost").textContent = eu(c.preparation+c.supportHandling);
+  q("floorCost").textContent = eu(c.comparisonAllowance);
   q("resultInfo").textContent = real
-    ? "Material aus G-Code berechnet; Druckzeit und Stützanteil teils geschätzt."
-    : "Geometrische Schätzung · ohne Slicing-Daten.";
+    ? "Rechenmodell · Extrusion aus G-Code, Zeit und Aufwand teils geschätzt."
+    : "Rechenmodell · Material und Zeit geometrisch geschätzt.";
   badge(
     real ? "G-Code analysiert" : "Geometrische Schätzung",
     real ? "ok" : "warn",
