@@ -43,18 +43,17 @@
           ><span class="brandmark">m<span>/</span></span
           >musterteil<span class="brand-lab">LAB</span></a
         ><span class="header-mid"
-          >Ein Modell. Ein Material. Eine Einschätzung.</span
+          >Studentisches Rechenprojekt · Kein Verkauf</span
         ><span class="local-label"><i></i> Deine Datei bleibt lokal</span>
       </header>
       <main>
         <div class="intro">
           <div>
-            <div class="eyebrow">WERKSTATT FÜR DRUCKKOSTEN</div>
-            <h1>Dein Modell. <span>Deine Druckkosten.</span></h1>
+            <div class="eyebrow">UNABHÄNGIGES 3D-KOSTENLABOR</div>
+            <h1>Dein Modell. <span>Dein Richtwert.</span></h1>
           </div>
           <p>
-            STL auswählen. Einstellungen anpassen.<br />Material und Strom im
-            Blick behalten.
+            STL ansehen. Material und Stützen vergleichen.<br />Direkt im Browser – ohne Auftrag.
           </p>
         </div>
         <div class="columns">
@@ -103,6 +102,13 @@
                 <option value="abs" selected>ABS</option>
                 <option value="pla">PLA Basic</option>
                 <option value="petg">PETG HF</option>
+                <option value="pla_matte">PLA Matte</option>
+                <option value="petg_translucent">PETG Translucent</option>
+                <option value="pla_silk">PLA Silk+</option>
+                <option value="asa">ASA</option>
+                <option value="tpu">TPU 95A HF</option>
+                <option value="pc">PC</option>
+                <option value="petg_cf">PETG-CF</option>
               </select></label
             >
             <p class="material-note" id="materialNote"></p>
@@ -129,8 +135,7 @@
               ><input id="support" type="checkbox" checked
             /></label>
             <p class="technical">
-              Beispielprofil: Creality K2 Plus.<br />Keine kalibrierte
-              Druckvorbereitung.
+              Beispielprofil: Creality K2 Plus.<br />Nur eine Simulation – kein Druckauftrag.
             </p>
           </section>
           <section class="viewer-panel" aria-label="Interaktive Modellansicht">
@@ -187,7 +192,7 @@
               <h2>Einschätzen</h2>
               <span class="badge" id="state">Bereit</span>
             </div>
-            <div class="cost-heading">Geschätzte Kosten</div>
+            <div class="cost-heading">Unverbindlicher Vergleichswert</div>
             <div class="total"><span id="total">—</span><small>€</small></div>
             <p id="resultInfo" class="subtitle">
               Wähle eine STL-Datei, um zu starten.
@@ -212,17 +217,16 @@
               </div>
             </div>
             <div class="breakdown">
-              <div>
-                <span>Filamentkosten</span><strong id="filamentCost">—</strong>
-              </div>
-              <div>
-                <span>Stromkosten <small>0,20 kW · 0,35 €/kWh</small></span
-                ><strong id="powerCost">—</strong>
-              </div>
+              <div><span>Filament</span><strong id="filamentCost">—</strong></div>
+              <div><span>Strom <small>0,20 kW · 0,35 €/kWh</small></span><strong id="powerCost">—</strong></div>
+              <div><span>Gerätenutzung <small>1,10 €/h · Modellannahme</small></span><strong id="machineCost">—</strong></div>
+              <div><span>Vor- und Nachbereitung <small>fiktiver Ansatz</small></span><strong id="handlingCost">—</strong></div>
+              <div><span>Ausgleich auf Mindestansatz <small>12 € · frei gesetzt</small></span><strong id="floorCost">—</strong></div>
             </div>
+            <p class="reference-explain">Nur ein Rechenszenario, kein Marktpreis oder Angebot.</p>
             <div class="pricebox">
               <div>
-                <span>Bambu Lab · 1 kg mit Spule</span
+                <span>Bambu Lab · Material-Referenz (1 kg)</span
                 ><small id="priceDate">REFERENZ</small>
               </div>
               <div>
@@ -232,7 +236,7 @@
                   href="https://bambulab-eu.myshopify.com/de/pages/bambu-filament"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >Quelle</a
+                  >Preisquelle prüfen ↗</a
                 >
               </div>
             </div>
@@ -251,13 +255,12 @@
           <span id="engineInfo"
             >Geometrie und Kosten werden lokal berechnet. Slicing ist
             optional.</span
-          ><span>Keine Druckfreigabe · Keine Live-Preise</span>
+          ><span>Keine Druckfreigabe · Preise sind datierte Quellenwerte</span>
         </div>
       </main>
       <footer>
         <p>
-          Ein studentisches Projekt zur Kostenschätzung. Keine Bestellungen,
-          Zahlungen oder verbindlichen Angebote.
+          Privates Studienprojekt für Rechenbeispiele. Keine Firma, keine Aufträge, kein Geld, keine Bestätigung der Druckbarkeit.
         </p>
         <nav aria-label="Informationen">
           <button data-dialog="methodDialog">Methodik</button
@@ -301,8 +304,14 @@
         Beschleunigungen bleiben Näherungen.
       </p>
       <p>
-        Die reine Material-/Stromkostenrechnung verwendet 0,20 kW × 0,35 €/kWh.
-        Arbeit, Versand, Steuern und Gewinnaufschlag werden nicht eingerechnet.
+        Die Rohkosten umfassen Filament (Gramm × Euro pro Kilogramm) und Strom
+        (0,20 kW × 0,35 €/kWh). Zusätzlich zeigt der unverbindliche
+        <b>Vergleichswert</b> frei gewählte Rechenannahmen: Gerätenutzung
+        mit 1,10 € je Stunde, Vorbereitung 2,50 €, bei Stützen weitere 1,25 €
+        sowie gegebenenfalls einen Ausgleich auf mindestens 12 €.
+        Diese Beträge sind weder nachgewiesene reale Kosten noch Markt- oder
+        Angebotspreise. Es gibt keine Bestell- oder Zahlungsfunktion.
+        Steuern, Versand und echte individuelle Kosten sind nicht erfasst.
         Referenzpreise stammen von
         <a
           href="https://bambulab-eu.myshopify.com/de/pages/bambu-filament"
@@ -310,8 +319,10 @@
           rel="noopener noreferrer"
           >Bambu Lab EU</a
         >
-        und sind mit dem letzten Bestätigungsdatum gekennzeichnet. Automatische
-        Preisabfragen sind deaktiviert.
+        und werden pro Material mit einer öffentlich zugänglichen Quelle und
+        einem Recherchedatum angezeigt. Die Werte sind nicht live,
+        können sich ändern und sollten direkt beim Anbieter geprüft werden.
+        Automatische Preisabfragen sind deaktiviert.
       </p>
       <p>
         Quellen:
@@ -342,7 +353,7 @@
       <div class="eyebrow">DATENSCHUTZ</div>
       <h2>Die STL-Datei bleibt im Browser.</h2>
       <p>
-        Dieses Tool versendet die ausgewählte STL-Datei nicht an den Betreiber,
+        Dieses Tool überträgt die ausgewählte STL-Datei nicht an den Betreiber,
         speichert sie nicht auf einem Server und erfordert kein Konto. Es
         verwendet weder Tracking-Cookies noch Analytics und speichert keine
         lokalen Nutzerdaten.
