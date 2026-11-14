@@ -53,11 +53,15 @@ Das ist **kein Verkaufspreis**, **keine Schätzung der tatsächlich angefallenen
 
 ## Video und Gestaltung
 
-Vorhandener lokaler Clip: `assets/video/bg-lab.mp4`, CC0, drei Sekunden, aus Blender gerendert. Zurückhaltende echte lokale Medien statt externer Video-Tracking-Einbindungen. Am 14. November 2026 wurde die Darstellung visuell heller, kontrastreicher und orangefarben gemacht; WebGL-Material und Beleuchtung wurden angepasst. Das ist **noch keine echte Kameraaufnahme**. Passende real gefilmte Clips, nur zur späteren Prüfung und mit Lizenznachweis:
-- https://www.pexels.com/video/precision-orange-3d-printer-in-workshop-setting-31076271/
-- https://www.pexels.com/video/3d-printer-printing-855255/
+Der ursprünglich im Projekt enthaltene Blender-CGI-Clip (3 Sekunden) wurde am 14. November 2026 durch eine **echte Kameraaufnahme** eines laufenden FDM-Druckers ersetzt. Der lokal gehostete Film ist ein ca. acht Sekunden langer, weboptimierter H.264-MP4-Loop (ca. 700 KB) mit WebP-Poster. CSS und die Three.js-Modellbeleuchtung wurden heller, orangefarbener und lesbarer gestaltet.
 
-Keine dieser externen Filmdateien wurde ungeprüft eingebettet oder als lokale Videodatei ausgegeben. Ein Ersatz muss vorab korrekt lizenziert, heruntergeladen, zugeschnitten und als lokaler MP4 ins Repository übernommen werden.
+- Kameramann: **Jakub Zerdzicki**, via Pexels
+- Original: https://www.pexels.com/video/precision-orange-3d-printer-in-workshop-setting-31076271/
+- Nutzungsrechte: https://www.pexels.com/license/ — **Pexels-Lizenz, nicht CC0**
+- Lokal gespeicherte Kopien: `assets/video/bg-lab.mp4` und `assets/video/bg-lab.webp`
+- Verbindliche Details zur Herkunft stehen in `assets/video/LICENSE.md`.
+- Der Film wird ausschließlich von der eigenen GitHub-Pages-Domain geladen. Keine zusätzlichen Video-Trackingdienste.
+- Die einmalige Verarbeitung erfolgte mit FFmpeg auf einem kostenlosen Standard-Runner einer öffentlichen GitHub-Repository; der temporäre Workflow wurde wieder entfernt, keine wiederkehrende Berechnung und kein Abonnement.
 
 ## Rechtliches
 
