@@ -36,3 +36,10 @@ Repository-Einstellungen → Pages → **Deploy from a branch** → **main** →
 **Vor öffentlicher Veröffentlichung fehlen weiterhin Name, ladungsfähige Anschrift und Kontakt der verantwortlichen Person im Impressum.** Diese Daten werden nicht erfunden. Die Bezeichnung „Studienprojekt“ hebt Informationspflichten nicht auf. Die rechtlichen Angaben und Datenschutzhinweise müssen vor dem öffentlichen Betrieb geprüft und vervollständigt werden.
 
 Die gehostete externe Kiri-Engine kann sich ändern und erhält beim Laden technisch notwendige Verbindungsdaten. Three.js, Video, CSS, Preise und Anwendungslogik werden dagegen vom eigenen statischen Ursprung geladen.
+
+## 14 November 2026 design and research update
+The visual design was revised to favour warm industrial amber lighting, brighter readable interface panels, and a more polished Three.js model material. The existing locally hosted **3-second CC0 Blender-generated video remains the background asset**; it is a *procedural render, not genuine camera footage*. CSS has been improved substantially but this does **not** substitute for user-requested photoreal camera footage. Replacing that binary MP4 requires obtaining an appropriately licensed clip and committing an optimized local copy.
+
+The design borrows **general approaches, not code**, from open-source references documented in [research-and-cost-model.md](docs/research-and-cost-model.md). For the cost scenario, source disclosure is essential: EUR 12 is a human-configured comparison floor and must never be represented as real measured manufacturing expenses or a quote.
+
+**Legal reminder:** The project notice alone does not establish compliance with German law or immigration/residence-work restrictions. Real Impressum details remain placeholders; an authorised responsible person must provide the missing information and review applicable obligations before public distribution. Do not use the site to take or solicit orders without appropriate permission.
