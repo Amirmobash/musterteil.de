@@ -1,30 +1,19 @@
-# Hintergrundfilm „Musterteil LAB“
+# Musterteil LAB background footage
 
-`bg-lab.mp4` und `bg-lab.webp` sind eine eigens für dieses Projekt erstellte,
-prozedural gerenderte 3D-Animation, keine Kameraaufnahme und kein Stockmaterial.
-Gezeigt werden ein vereinfachter FDM-Drucker, bewegte Messingdüse,
-ABS-Schichtkonturen, frische Filamentablage und eine langsame Kamerabewegung.
-Keine Fremdmodelle, Texturen, Musik, Markenlogos oder kostenpflichtigen Dienste.
+Local optimized video: `bg-lab.mp4`; derived poster: `bg-lab.webp`.
 
-Die beiden Medien und der Szenengenerator `tools/render_lab.py` werden unter
-**CC0 1.0 Universal** bereitgestellt:
-https://creativecommons.org/publicdomain/zero/1.0/
+**Real camera footage**, filmed by Jakub Zerdzicki and originally
+published on Pexels:
+https://www.pexels.com/video/precision-orange-3d-printer-in-workshop-setting-31076271/
 
-Erstellung mit Blender 4.3.2 / Cycles (CPU, 24 Samples), Kompression mit FFmpeg.
-Blender und FFmpeg sind Werkzeuge; ihre Softwarelizenzen werden dadurch nicht
-auf das eigenständig gerenderte Bildmaterial übertragen.
+Licensed for website use and adaptation under the **Pexels License**:
+https://www.pexels.com/license/
 
-Reproduktion vom Repository-Verzeichnis:
+This stock footage is **not CC0** and is not an original render by
+the Musterteil project. Creator credit is provided voluntarily.
+The footage is not used as part of a trademark, nor does its
+inclusion imply that a brand or producer endorses this website.
 
-```sh
-blender -b -t 6 -P tools/render_lab.py
-ffmpeg -y -framerate 24 -i /tmp/musterteil-video/frame-%04d.png -frames:v 72 \
-  -vf 'hqdn3d=2:1.5:3:2' -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p \
-  -movflags +faststart -an assets/video/bg-lab.mp4
-ffmpeg -y -i assets/video/bg-lab.mp4 -frames:v 1 -c:v libwebp -quality 82 \
-  assets/video/bg-lab.webp
-```
-
-72 Frames, 768 × 432 Pixel, 24 fps, 3 Sekunden; ohne Ton. Der Loop ist für einen
-stark abgedunkelten Hintergrund optimiert. Bei reduzierter Bewegung pausiert er
-standardmäßig; die Standbilddatei bleibt als Fallback verfügbar.
+Media was locally re-encoded as H.264 MP4 for privacy and speed.
+Visitors load the video from the same GitHub Pages domain, not
+from Pexels. This README preserves attribution and origin.
