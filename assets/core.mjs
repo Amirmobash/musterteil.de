@@ -1,32 +1,15 @@
-// Local math, independent from DOM and the externally fetched slicer.
+// Educational reference profiles, not calibrated slicing presets.
 export const materials = {
-  abs: {
-    name: "ABS",
-    density: 1.04,
-    temp: 255,
-    bed: 100,
-    flow: 4.4,
-    details:
-      "ABS ist zäh und wärmebeständiger als PLA. Ein geschlossener Bauraum hilft gegen Verzug.",
-  },
-  pla: {
-    name: "PLA Basic",
-    density: 1.24,
-    temp: 220,
-    bed: 60,
-    flow: 5.1,
-    details:
-      "PLA ist steif und lässt sich meist einfach drucken. Es eignet sich gut für Modelle, verträgt aber wenig Wärme.",
-  },
-  petg: {
-    name: "PETG HF",
-    density: 1.27,
-    temp: 250,
-    bed: 75,
-    flow: 4.7,
-    details:
-      "PETG ist zäh und weniger steif als PLA. Beim Drucken können Fäden entstehen.",
-  },
+  abs: { name:"ABS", density:1.04, temp:255, bed:100, flow:4.4, details:"Zäh und wärmebeständig. Für weniger Verzug empfiehlt sich ein geschlossener Bauraum." },
+  pla: { name:"PLA Basic", density:1.24, temp:220, bed:60, flow:5.1, details:"Leicht zu drucken und formstabil. Für Bauteile mit hoher Wärmebelastung weniger geeignet." },
+  petg: { name:"PETG HF", density:1.27, temp:250, bed:75, flow:4.7, details:"Zäh, alltagstauglich und relativ feuchtigkeitsbeständig. Neigt teilweise zu Fäden." },
+  pla_matte: { name:"PLA Matte", density:1.24, temp:220, bed:60, flow:4.9, details:"PLA mit matter Oberfläche. Gut für Anschauungsmodelle und dekorative Teile." },
+  petg_translucent: { name:"PETG Translucent", density:1.27, temp:250, bed:75, flow:4.5, details:"Lichtdurchlässiges PETG. Die Wirkung hängt von Wandstärke, Farbe und Druckrichtung ab." },
+  pla_silk: { name:"PLA Silk+", density:1.24, temp:225, bed:60, flow:4.4, details:"Glänzende PLA-Variante für sichtbare Oberflächen. Mechanische Eigenschaften beachten." },
+  asa: { name:"ASA", density:1.07, temp:260, bed:100, flow:4.2, details:"UV- und witterungsbeständig. Geschlossener Bauraum und gute Lüftung sind wichtig." },
+  tpu: { name:"TPU 95A HF", density:1.22, temp:235, bed:40, flow:2.9, details:"Flexibel für Dichtungen und Schutzteile. Braucht angepasste Geschwindigkeit und Filamentführung." },
+  pc: { name:"PC", density:1.20, temp:270, bed:110, flow:3.4, details:"Hohe Wärme- und Schlagbeständigkeit. Trocknung und geschlossener Bauraum erforderlich." },
+  petg_cf: { name:"PETG-CF", density:1.25, temp:260, bed:75, flow:3.8, details:"PETG mit Kohlefaserfüllung; steife, strukturierte Oberfläche. Gehärtete Düse empfohlen." }
 };
 const bound = (v, min, max) => Math.max(min, Math.min(max, v));
 export function geometrySTL(data) {
@@ -251,4 +234,19 @@ export function costs(g, h, kg) {
   const filament = (g / 1000) * kg,
     power = h * 0.2 * 0.35;
   return { filament, power, total: filament + power };
+}
+
+/** An explicitly hypothetical, non-commercial comparison scenario.
+ * Separates real filament/energy arithmetic from unverified assumptions.
+ * The EUR 12 floor is user-defined, not an observed market or production cost.
+ */
+export function comparisonCosts(grams, hours, kg, supportGrams=0, minimum=12) {
+  const base=costs(grams,hours,kg);
+  const machine=Math.max(0,hours)*1.10;
+  const preparation=2.50;
+  const supportHandling=supportGrams>0?1.25:0;
+  const beforeFloor=base.total+machine+preparation+supportHandling;
+  const comparisonAllowance=Math.max(0,minimum-beforeFloor);
+  return { ...base, machine, preparation, supportHandling, comparisonAllowance,
+    materialAndEnergy:base.total, total:beforeFloor+comparisonAllowance };
 }
