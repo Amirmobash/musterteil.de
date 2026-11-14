@@ -147,13 +147,21 @@ async function upload(page) {
             r.right <= innerWidth
           );
         }),
+        offscreen: [
+          ...document.querySelectorAll(
+            "select,#support,#recalc,.viewer-tools button,footer button",
+          ),
+        ].filter((e) => {
+          const r=e.getBoundingClientRect();
+          return r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth;
+        }).map(e=>({selector:e.id||e.textContent.trim().slice(0,35),top:Math.round(e.getBoundingClientRect().top),bottom:Math.round(e.getBoundingClientRect().bottom)})),
         overlap:
           document.querySelector(".technical").getBoundingClientRect().bottom >
           document.querySelector(".settings").getBoundingClientRect().bottom,
       }));
       assert.equal(layout.w, width);
       assert.equal(layout.h, height);
-      assert.ok(layout.visible);
+      assert.ok(layout.visible, "Offscreen controls: "+JSON.stringify(layout.offscreen));
       assert.equal(layout.overlap, false);
       assert.match(
         await page.locator("#sizeInfo").textContent(),
