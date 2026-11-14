@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { geometrySTL, estimate, gcodeStats, costs } from "../assets/core.mjs";
+import { geometrySTL, estimate, gcodeStats, costs, comparisonCosts, materials } from "../assets/core.mjs";
 function cube() {
   const points = [
     [0, 0, 0],
@@ -110,4 +110,29 @@ test("support and material density change the estimate", () => {
   assert.ok(r.support > 0);
   assert.equal(estimate(a, { ...s, support: false }).support, 0);
   assert.ok(estimate(a, { ...s, material: "petg" }).total > r.total);
+});
+
+test("ten selectable material variants have physically plausible demonstration values", () => {
+  assert.ok(Object.keys(materials).length >= 10);
+  assert.equal(materials.abs.name, "ABS");
+  for (const m of Object.values(materials)) {
+    assert.ok(m.density > 0.8 && m.density < 1.6);
+    assert.ok(m.temp >= 180 && m.temp <= 300);
+    assert.ok(m.flow > 0);
+  }
+});
+test("reference scenario has user-defined EUR 12 floor, without altering raw material and power costs", () => {
+  const raw=costs(20, 1, 25.99);
+  const model=comparisonCosts(20, 1, 25.99, 0);
+  assert.ok(model.total >= 12);
+  assert.equal(model.filament, raw.filament);
+  assert.equal(model.power, raw.power);
+  assert.equal(model.materialAndEnergy, raw.total);
+  assert.ok(Math.abs(model.total - (model.filament+model.power+model.machine+model.preparation+model.supportHandling+model.comparisonAllowance)) < 1e-8);
+});
+test("supports increase only the hypothetical finishing component", () => {
+  const without=comparisonCosts(100, 6, 25.99, 0);
+  const withSupports=comparisonCosts(100, 6, 25.99, 11);
+  assert.equal(withSupports.supportHandling - without.supportHandling, 1.25);
+  assert.ok(withSupports.total > without.total);
 });
