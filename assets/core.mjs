@@ -2,7 +2,7 @@
 export const materials = {
   abs: { name:"ABS", density:1.04, temp:255, bed:100, flow:4.4, details:"Zäh und wärmebeständig. Für weniger Verzug empfiehlt sich ein geschlossener Bauraum." },
   pla: { name:"PLA Basic", density:1.24, temp:220, bed:60, flow:5.1, details:"Leicht zu drucken und formstabil. Für Bauteile mit hoher Wärmebelastung weniger geeignet." },
-  petg: { name:"PETG HF", density:1.27, temp:250, bed:75, flow:4.7, details:"Zäh, alltagstauglich und relativ feuchtigkeitsbeständig. Neigt teilweise zu Fäden." },
+  petg: { name:"PETG HF", density:1.27, temp:250, bed:75, flow:4.7, details:"PETG HF ist zäh, alltagstauglich und relativ feuchtigkeitsbeständig. Beim Drucken können Fäden entstehen." },
   pla_matte: { name:"PLA Matte", density:1.24, temp:220, bed:60, flow:4.9, details:"PLA mit matter Oberfläche. Gut für Anschauungsmodelle und dekorative Teile." },
   petg_translucent: { name:"PETG Translucent", density:1.27, temp:250, bed:75, flow:4.5, details:"Lichtdurchlässiges PETG. Die Wirkung hängt von Wandstärke, Farbe und Druckrichtung ab." },
   pla_silk: { name:"PLA Silk+", density:1.24, temp:225, bed:60, flow:4.4, details:"Glänzende PLA-Variante für sichtbare Oberflächen. Mechanische Eigenschaften beachten." },
