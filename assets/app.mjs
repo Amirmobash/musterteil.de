@@ -236,7 +236,7 @@ async function calculate() {
         sliceSupportGap: 1,
         outputTemp: materials[s.material].temp,
         outputBedTemp: materials[s.material].bed,
-        outputFeedrate: s.material === "abs" ? 55 : 65,
+        outputFeedrate: ({ abs:55, pla:65, petg:55, pla_matte:60, petg_translucent:50, pla_silk:50, asa:50, tpu:28, pc:40, petg_cf:40 })[s.material] || 50,
         outputFinishrate: 40,
         outputSeekrate: 125,
       })
@@ -461,4 +461,5 @@ video.querySelector("source").addEventListener("error", videoUnavailable);
 window.addEventListener("pagehide", (event) => {
   if (!event.persisted) viewer?.dispose();
 });
+video.playbackRate = 0.78;
 videoState();
