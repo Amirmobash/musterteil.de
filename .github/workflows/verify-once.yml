@@ -1,5 +1,5 @@
 # One-time verification, removed after completion. Public standard runner has no usage charge.
-name: One-time Musterteil quality verification (final)
+name: One-time Musterteil Chrome codec verification
 on:
   push:
     branches: [main]
@@ -35,4 +35,5 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           sleep 2
-          npm run test:browser
+          command -v google-chrome
+          CHROMIUM_PATH="$(command -v google-chrome)" npm run test:browser
