@@ -1,5 +1,5 @@
 # One-time verification, removed after completion. Public standard runner has no usage charge.
-name: One-time Musterteil quality verification
+name: One-time Musterteil quality verification (viewport retest)
 on:
   push:
     branches: [main]
